@@ -1,0 +1,431 @@
+'use client'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+
+// SVG Icon Components
+const NewspaperIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+  </svg>
+)
+
+const PhoneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+  </svg>
+)
+
+const ArrowRightIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+  </svg>
+)
+
+const StarIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+  </svg>
+)
+
+const BoltIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+  </svg>
+)
+
+const articles = [
+  {
+    slug: 'rooftop-solar-surpasses-coal-28gw-australia-2025',
+    title: 'Australia\'s Rooftop Solar Hits 28.3 GW — Now Bigger Than the Entire Coal Fleet',
+    description: 'With 4.3 million installations, Australian rooftops now produce 28.3 GW — surpassing the nation\'s 22.5 GW coal fleet. Battery uptake surged fourfold in H2 2025.',
+    image: '/solarroof8.jpg',
+    date: 'March 2026',
+    category: 'Industry News',
+    featured: false
+  },
+  {
+    slug: 'february-2026-record-battery-month-australia',
+    title: 'February 2026 Smashes Battery Records: 1.2 GWh Installed in a Single Month',
+    description: 'A record 1.2 GWh of home battery storage was registered in February 2026 — up 24% on January. Every state saw increased uptake as homeowners rush to beat the May 1 rebate deadline.',
+    image: '/batteryImage2.jpg',
+    date: 'March 2026',
+    category: 'Industry News',
+    featured: false
+  },
+  {
+    slug: 'cer-projects-520000-home-batteries-12gwh-2026',
+    title: 'CER Projects Up to 520,000 Home Batteries and 12 GWh of Storage in 2026',
+    description: 'The Clean Energy Regulator projects 350,000-520,000 home battery installations delivering 8-12 GWh of storage in 2026. Large-scale solar approvals also hit a record 3 GW.',
+    image: '/batteryImage3.jpg',
+    date: 'March 2026',
+    category: 'Industry News',
+    featured: false
+  },
+  {
+    slug: 'australia-battery-boom-record-demand-may-2026-deadline',
+    title: 'Australia\'s Battery Boom Hits Record Highs — and the May 1 Deadline Is Weeks Away',
+    description: 'A record 1.2 GWh of home batteries were registered in February 2026 alone. With the federal rebate dropping on 1 May, here\'s what every Australian homeowner needs to know right now.',
+    image: '/batteryImage1.jpg',
+    date: 'March 2026',
+    category: 'Industry News',
+    featured: false
+  },
+  {
+    slug: 'solar-battery-boom-choosing-right-system',
+    title: 'The Battery Boom Is Real: Choosing the Right System and Trusted Installer',
+    description: 'Demand for home batteries is skyrocketing, but rushing in without guidance can cost you. Learn why smart, safe installation matters and how Super Solar Energy helps homeowners every step of the way.',
+    image: '/batteryImage2.jpg',
+    date: 'March 2026',
+    category: 'Industry Insights',
+    featured: false
+  },
+  {
+    slug: 'record-home-battery-surge-australia-2025',
+    title: 'Record Home Battery Surge Charges Up Australia\u2019s Biggest Power Station on Aussie Rooftops',
+    description: '183,245 home batteries installed in H2 2025 \u2014 more than the entire 2020\u20132024 period combined. A four-fold increase signals the battery revolution is here. Find out what it means and how Super Solar Energy can help.',
+    image: '/batteryImage1.jpg',
+    date: 'March 2026',
+    category: 'Industry News',
+    featured: true
+  },
+  {
+    slug: 'goodwe-esa-three-phase-all-in-one-energy-storage',
+    title: 'GoodWe ESA All-in-One: How Super Solar Energy Can Help You Get Australia\'s Most Advanced Energy Storage System',
+    description: 'CEC-approved three-phase energy storage with 5-108kWh capacity. Pre-wired, modular design with whole-home backup. Coming soon to Super Solar Energy.',
+    image: '/banners/goodwe-all-in-one.png',
+    date: 'March 2026',
+    category: 'Product News',
+    featured: false
+  },
+  {
+    slug: 'australia-solar-battery-rebate-guide-state-by-state-2026',
+    title: 'The Complete 2026 Australian Solar Battery Rebate Guide: Every State, Every Dollar, Every Deadline',
+    description: 'The definitive state-by-state guide to solar battery rebates across Australia. Federal $7.2B program, state incentives, STC timelines, and exactly how much you can save before rebates drop.',
+    image: '/batteryImage3.jpg',
+    date: 'February 2026',
+    category: 'Guides',
+    featured: false
+  },
+  {
+    slug: 'stc-battery-rebate-countdown-2026',
+    title: 'Your Battery Rebate Is Shrinking Every 6 Months: The STC Countdown Has Begun',
+    description: 'The federal STC factor drops from 8.4 to 6.8 in May 2026 and keeps falling every 6 months. A 13.5kWh battery loses $2,800 in rebates by 2028. The clock is ticking.',
+    image: '/batteryImage2.jpg',
+    date: 'February 2026',
+    category: 'Government Rebates',
+    featured: false
+  },
+  {
+    slug: 'nsw-battery-rebate-guide-2026',
+    title: 'NSW Homeowners: Your Complete 2026 Guide to Battery Rebates and Savings',
+    description: 'NSW households pay up to $2,400/year on electricity with peak rates hitting 55c/kWh. Stack federal STCs with NSW incentives to save $1,500-$2,000/year with solar + battery.',
+    image: '/solarroof8.jpg',
+    date: 'February 2026',
+    category: 'Government Rebates',
+    featured: false
+  },
+  {
+    slug: 'queensland-solar-battery-savings-2026',
+    title: 'Queensland\'s Solar Goldmine: Why the Sunshine State Needs Batteries Now More Than Ever',
+    description: 'QLD has Australia\'s best solar but some of the lowest battery uptake. With feed-in tariffs near zero and federal rebates dropping, every month without a battery is money lost.',
+    image: '/solarroof3.jpg',
+    date: 'February 2026',
+    category: 'Industry News',
+    featured: false
+  },
+  {
+    slug: 'south-australia-battery-vpp-opportunity-2026',
+    title: 'South Australia\'s Battery Revolution: How SA Households Are Earning Money from Their Solar',
+    description: 'SA has the highest electricity prices in Australia and the lowest feed-in tariffs. With battery + VPP, SA households can save up to $3,000/year. Federal rebates dropping from May 2026.',
+    image: '/batteryImage1.jpg',
+    date: 'February 2026',
+    category: 'Industry News',
+    featured: false
+  },
+  {
+    slug: 'western-australia-solar-battery-guide-2026',
+    title: 'Western Australia Solar Battery Guide: Perth Homeowners Are Leaving Thousands on the Table',
+    description: 'WA\'s rock-bottom 2.25c/kWh feed-in tariff and solar curtailment make batteries essential, not optional. Federal rebates of ~$4,500 dropping from May 2026.',
+    image: '/solarroof5.jpg',
+    date: 'February 2026',
+    category: 'Guides',
+    featured: false
+  },
+  {
+    slug: 'victoria-electricity-prices-record-highs-2026',
+    title: 'Victoria\'s Electricity Prices Hit Record Highs: Why Solar + Battery Is Your Best Defence',
+    description: 'Victorian households are paying more for electricity than ever before, with prices up over 50% since 2021. Find out why acting now saves you thousands in lost savings and declining rebates.',
+    image: '/solarroof10.jpg',
+    date: 'February 2026',
+    category: 'Electricity Costs',
+    featured: false
+  },
+  {
+    slug: 'feed-in-tariffs-collapsing-victoria-battery-essential',
+    title: 'Feed-in Tariffs Are Collapsing in Victoria: Why Every Solar Home Needs a Battery',
+    description: 'Victorian solar feed-in tariffs have plummeted from 60c/kWh to under 5c/kWh. Without a battery, your solar panels are leaving money on the table. Here\'s how to fix that.',
+    image: '/solarroof5.jpg',
+    date: 'February 2026',
+    category: 'Industry News',
+    featured: false
+  },
+  {
+    slug: 'victoria-grid-pressure-blackouts-solar-battery-protection',
+    title: 'Victoria\'s Grid Under Pressure: How Solar + Battery Protects Your Home from Blackouts',
+    description: 'Coal closures, extreme weather, and infrastructure delays are pushing Victoria\'s power grid to the limit. A solar + battery system provides genuine energy independence.',
+    image: '/solarroof3.jpg',
+    date: 'February 2026',
+    category: 'Energy Security',
+    featured: false
+  },
+  {
+    slug: 'federal-battery-rebate-changes-2025',
+    title: 'Federal Battery Rebate Changes: $7.2 Billion Expansion with New Rules',
+    description: 'The Australian Government has expanded the Cheaper Home Batteries Program from $2.3bn to $7.2bn, with new tiered rebates for larger batteries starting May 2026.',
+    image: '/batteryImage3.jpg',
+    date: 'December 2025',
+    category: 'Government Rebates',
+    featured: false
+  },
+  {
+    slug: 'cheaper-home-batteries-program',
+    title: '$2.3 Billion Cheaper Home Batteries Program Now Live',
+    description: 'Government launches massive battery rebate program offering up to 30% discounts on home battery systems. Learn how to take advantage of this unprecedented opportunity.',
+    image: '/batteryImage2.jpg',
+    date: 'August 2025',
+    category: 'Government Rebates',
+    featured: false
+  },
+  {
+    slug: 'maximize-government-benefits',
+    title: 'How Solar Households Can Maximize Government Benefits',
+    description: 'Complete guide to accessing federal and state solar incentives, rebates, and the new battery program. Everything you need to know to get the best value.',
+    image: '/solarroof8.jpg',
+    date: 'August 2025',
+    category: 'Guides',
+    featured: false
+  },
+  {
+    slug: 'battery-storage-revolution',
+    title: 'Battery Storage Revolution: 5kWh to 100kWh Systems Eligible',
+    description: 'New program covers batteries from small residential to large commercial installations with CEC approval. Find out if your system qualifies.',
+    image: '/batteryImage1.jpg',
+    date: 'August 2025',
+    category: 'Industry News',
+    featured: false
+  }
+]
+
+export default function ArticlesPage() {
+  return (
+    <div className="bg-white">
+      {/* Hero Section */}
+      <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-[#E8621A]">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#E8621A] via-[#E8621A]/90 to-[#E8621A]"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16">
+          <motion.div
+            className="text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6 border border-white/20">
+              <NewspaperIcon className="w-5 h-5 text-[#F9A825]" />
+              <span className="text-white font-semibold text-sm">Solar & Battery News</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
+              Latest <span className="text-[#F9A825]">Articles</span> &{' '}
+              <span className="text-white">Updates</span>
+            </h1>
+
+            <p className="text-xl text-white/90 max-w-2xl mx-auto mb-8">
+              Stay informed with the latest government rebates, industry news, and important changes
+              affecting solar and battery installations in Australia.
+            </p>
+
+            <a
+              href="tel:1300090984"
+              className="inline-flex items-center gap-2 bg-[#F9A825] text-[#0f1923] px-6 py-3 rounded-lg font-semibold hover:bg-[#e09000] transition-all"
+            >
+              <PhoneIcon className="w-5 h-5" />
+              Call 1300 09 09 84
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Article */}
+      {articles.filter(a => a.featured).map((article) => (
+        <section key={article.slug} className="py-16 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="text-center mb-8">
+                <span className="inline-flex items-center gap-2 bg-[#F9A825]/20 px-4 py-2 rounded-full border border-[#F9A825]/30">
+                  <StarIcon className="w-4 h-4 text-[#E8621A]" />
+                  <span className="text-[#E8621A] font-semibold text-sm">Featured Article</span>
+                </span>
+              </div>
+
+              <Link href={`/articles/${article.slug}`} className="block group">
+                <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden hover:border-[#E8621A]/40 transition-all duration-300">
+                  <div className="grid md:grid-cols-2 gap-0">
+                    <div className="relative h-64 md:h-96">
+                      <Image
+                        src={article.image}
+                        alt={article.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/80 md:block hidden"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent md:hidden"></div>
+                    </div>
+                    <div className="p-8 md:p-12 flex flex-col justify-center">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-[#E8621A]/10 px-3 py-1 rounded-full text-sm text-[#E8621A] border border-[#E8621A]/20">{article.category}</span>
+                        <span className="text-[#666666]">{article.date}</span>
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#333333] mb-4 group-hover:text-[#E8621A] transition-colors">
+                        {article.title}
+                      </h2>
+                      <p className="text-[#666666] text-lg mb-6">
+                        {article.description}
+                      </p>
+                      <div className="flex items-center text-[#E8621A] font-semibold group-hover:gap-4 gap-2 transition-all">
+                        Read Full Article
+                        <ArrowRightIcon className="w-5 h-5" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      ))}
+
+      {/* All Articles Grid */}
+      <section className="py-16 bg-[#efefef] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-[#333333] mb-4">
+              All <span className="text-[#E8621A]">Articles</span>
+            </h2>
+            <p className="text-xl text-[#666666]">
+              Important updates for Australian solar and battery customers
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {articles.map((article, index) => (
+              <motion.div
+                key={article.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+              >
+                <Link href={`/articles/${article.slug}`} className="block group h-full">
+                  <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden hover:border-[#E8621A]/30 transition-all duration-300 h-full flex flex-col">
+                    <div className="relative h-48">
+                      <Image
+                        src={article.image}
+                        alt={article.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div>
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-white/90 px-3 py-1 rounded-full text-xs font-semibold text-[#E8621A] border border-[#E8621A]/20">
+                          {article.category}
+                        </span>
+                      </div>
+                      {article.featured && (
+                        <div className="absolute top-4 right-4">
+                          <span className="bg-[#F9A825] px-2 py-1 rounded-full">
+                            <StarIcon className="w-4 h-4 text-[#0f1923]" />
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6 flex-1 flex flex-col">
+                      <div className="text-sm text-[#E8621A] font-medium mb-2">{article.date}</div>
+                      <h3 className="text-xl font-semibold text-[#333333] mb-3 group-hover:text-[#E8621A] transition-colors line-clamp-2">
+                        {article.title}
+                      </h3>
+                      <p className="text-[#666666] mb-4 line-clamp-3 flex-1">{article.description}</p>
+                      <div className="flex items-center text-[#E8621A] font-medium group-hover:gap-3 gap-1 transition-all">
+                        Read More
+                        <ArrowRightIcon className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-[#E8621A] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6 border border-white/20">
+              <BoltIcon className="w-5 h-5 text-[#F9A825]" />
+              <span className="text-white font-semibold text-sm">Limited Time Offer</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
+              Ready to Take Advantage of the{' '}
+              <span className="text-[#F9A825]">Rebates?</span>
+            </h2>
+
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Don&apos;t miss out on the government battery rebates. Contact us today for a free consultation
+              and find out how much you can save.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/quote"
+                className="bg-[#F9A825] text-[#0f1923] px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#e09000] transition-all"
+              >
+                Get Free Quote
+                <ArrowRightIcon className="w-5 h-5" />
+              </Link>
+              <a
+                href="tel:1300090984"
+                className="bg-white text-[#E8621A] px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-gray-100 transition-all"
+              >
+                <PhoneIcon className="w-5 h-5" />
+                Call 1300 09 09 84
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  )
+}

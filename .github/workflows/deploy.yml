@@ -1,0 +1,141 @@
+name: Deploy Super Solar Energy to AWS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ap-southeast-2
+  NODE_VERSION: '20'
+
+jobs:
+  deploy:
+    name: Build & Deploy to S3 + CloudFront
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # ── 1. Deploy infrastructure ─────────────────────────────────
+      - name: Install CDK dependencies
+        working-directory: ./cdk
+        run: npm install
+
+      - name: Build CDK
+        working-directory: ./cdk
+        run: npm run build
+
+      - name: Bootstrap CDK (ap-southeast-2 + us-east-1)
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+        run: |
+          cd cdk
+          npx cdk bootstrap "aws://$AWS_ACCOUNT_ID/$AWS_REGION"
+          npx cdk bootstrap "aws://$AWS_ACCOUNT_ID/us-east-1"
+
+      - name: Deploy CDK Stack
+        working-directory: ./cdk
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          CERTIFICATE_ARN: ${{ secrets.CERTIFICATE_ARN }}
+        run: npx cdk deploy SuperSolarWebsiteStack --require-approval never --outputs-file outputs.json
+
+      - name: Extract Stack Outputs
+        id: stack-outputs
+        working-directory: ./cdk
+        run: |
+          BUCKET_NAME=$(jq -r '.SuperSolarWebsiteStack.BucketName // empty' outputs.json)
+          DISTRIBUTION_ID=$(jq -r '.SuperSolarWebsiteStack.DistributionId // empty' outputs.json)
+          API_ENDPOINT=$(jq -r '.SuperSolarWebsiteStack.ApiEndpoint // empty' outputs.json)
+          NAME_SERVERS=$(jq -r '.SuperSolarWebsiteStack.NameServers // empty' outputs.json)
+          WEBSITE_URL=$(jq -r '.SuperSolarWebsiteStack.WebsiteURL // empty' outputs.json)
+
+          echo "bucket_name=$BUCKET_NAME" >> "$GITHUB_OUTPUT"
+          echo "distribution_id=$DISTRIBUTION_ID" >> "$GITHUB_OUTPUT"
+          echo "api_endpoint=$API_ENDPOINT" >> "$GITHUB_OUTPUT"
+
+          echo ""
+          echo "========================================================"
+          echo "  SUPER SOLAR ENERGY — DEPLOYMENT INFO"
+          echo "========================================================"
+          echo "  Website:     $WEBSITE_URL"
+          echo "  API:         $API_ENDPOINT"
+          if [ -n "$NAME_SERVERS" ]; then
+            echo "  Nameservers (set these at Hostinger):"
+            echo "    $NAME_SERVERS"
+          fi
+          echo "========================================================"
+
+      # ── 2. Build frontend ────────────────────────────────────────
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build Next.js static site
+        working-directory: ./frontend
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
+          NEXT_PUBLIC_API_BASE_URL: ${{ steps.stack-outputs.outputs.api_endpoint }}
+        run: npm run build
+
+      # ── 3. Deploy to S3 ──────────────────────────────────────────
+      - name: Sync static site to S3
+        env:
+          BUCKET_NAME: ${{ steps.stack-outputs.outputs.bucket_name }}
+        run: |
+          aws configure set default.s3.max_concurrent_requests 50
+          aws configure set default.s3.multipart_threshold 8MB
+
+          # Immutable hashed assets — long TTL, skip if size matches
+          aws s3 sync frontend/out/_next/static "s3://$BUCKET_NAME/_next/static" \
+            --size-only \
+            --cache-control "public, max-age=31536000, immutable"
+
+          # All other files — short TTL, delete removed files
+          aws s3 sync frontend/out "s3://$BUCKET_NAME" \
+            --delete \
+            --size-only \
+            --exclude "_next/static/*" \
+            --cache-control "public, max-age=60, s-maxage=3600"
+
+      - name: Invalidate CloudFront cache
+        if: steps.stack-outputs.outputs.distribution_id != ''
+        env:
+          DISTRIBUTION_ID: ${{ steps.stack-outputs.outputs.distribution_id }}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "$DISTRIBUTION_ID" \
+            --paths "/*" \
+            --no-cli-pager
+
+      - name: Upload CDK outputs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cdk-outputs
+          path: cdk/outputs.json
+          retention-days: 30
+
+      - name: Done
+        run: echo "Super Solar Energy deployed successfully!"

@@ -1,3 +1,14 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build
+frontend/.next/
+frontend/out/
+cdk/cdk.out/
+*.js.map
+
 # Database
 *.db
 
@@ -11,5 +22,24 @@ __pycache__/
 .venv/
 venv/
 
+# Environment
+.env
+.env.local
+.env.production.local
+
 # OS
 .DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# CDK
+cdk/cdk.out/
+
+# Misc
+*.tsbuildinfo
+next-env.d.ts

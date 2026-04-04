@@ -1,0 +1,337 @@
+'use client'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+
+// SVG Icon Components
+const SunIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+)
+
+const CurrencyIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+)
+
+const BoltIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+  </svg>
+)
+
+const PhoneIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+  </svg>
+)
+
+const CheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+  </svg>
+)
+
+const SparklesIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+  </svg>
+)
+
+const ArrowRightIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+  </svg>
+)
+
+const StarIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+  </svg>
+)
+
+export default function SolarBatteryMelbourne() {
+  const suburbs = [
+    'Melbourne CBD', 'South Yarra', 'Richmond', 'Fitzroy', 'Carlton', 'Brunswick',
+    'Glen Waverley', 'Box Hill', 'Doncaster', 'Ringwood', 'Croydon', 'Mitcham',
+    'Brighton', 'Caulfield', 'Elwood', 'St Kilda', 'Port Melbourne', 'Williamstown',
+    'Frankston', 'Dandenong', 'Cranbourne', 'Berwick', 'Pakenham', 'Narre Warren',
+    'Werribee', 'Point Cook', 'Hoppers Crossing', 'Tarneit', 'Truganina', 'Melton',
+    'Geelong', 'Belmont', 'Grovedale', 'Torquay', 'Ocean Grove', 'Lara'
+  ]
+
+  return (
+    <div className="bg-white">
+      {/* Hero Section */}
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-[#E8621A]">
+        <div className="absolute inset-0">
+          <Image
+            src="/batteryImage1.jpg"
+            alt="Solar Battery Installation Melbourne"
+            fill
+            className="object-cover opacity-20"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#E8621A] via-[#E8621A]/80 to-transparent"></div>
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 border border-white/30 mb-6">
+              <SparklesIcon className="w-4 h-4 text-[#F9A825]" />
+              <span className="text-[#F9A825] text-sm font-semibold">VICTORIA&apos;S #1 CHOICE</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight font-display">
+              <span className="text-white">Solar Battery Installation</span>
+              <span className="block text-[#F9A825]">Melbourne</span>
+            </h1>
+            <p className="text-xl sm:text-2xl text-white/90 mb-8">
+              Government Rebates Up to <span className="text-[#F9A825] font-bold">$3,500</span>
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/quote"
+                className="bg-[#F9A825] text-[#0f1923] hover:bg-[#e09000] inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold shadow-xl transition-colors"
+              >
+                Get Free Melbourne Quote
+                <ArrowRightIcon className="w-5 h-5" />
+              </Link>
+              <a
+                href="tel:1300090984"
+                className="bg-white text-[#E8621A] hover:bg-gray-100 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold transition-colors"
+              >
+                <PhoneIcon className="w-5 h-5" />
+                1300 09 09 84
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Melbourne-Specific Benefits */}
+      <section className="py-20 bg-[#efefef] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-4 font-display">
+              Why Melbourne Homes Need{' '}
+              <span className="text-[#E8621A]">Solar Batteries</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div
+              className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 hover:border-[#E8621A]/40 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="w-16 h-16 bg-[#E8621A]/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <SunIcon className="w-8 h-8 text-[#E8621A]" />
+              </div>
+              <h3 className="text-xl font-bold text-[#333333] mb-3">Year-Round Solar Potential</h3>
+              <p className="text-[#666666]">
+                Melbourne receives excellent solar radiation year-round. Even in winter, solar batteries capture and store valuable energy.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 hover:border-[#E8621A]/40 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <div className="w-16 h-16 bg-[#E8621A]/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <CurrencyIcon className="w-8 h-8 text-[#E8621A]" />
+              </div>
+              <h3 className="text-xl font-bold text-[#333333] mb-3">VIC Energy Costs</h3>
+              <p className="text-[#666666]">
+                Victoria electricity prices are 25-30c/kWh and rising. Batteries help you avoid peak rates and maximize savings.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 hover:border-[#E8621A]/40 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="w-16 h-16 bg-[#E8621A]/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <BoltIcon className="w-8 h-8 text-[#E8621A]" />
+              </div>
+              <h3 className="text-xl font-bold text-[#333333] mb-3">Extreme Weather Backup</h3>
+              <p className="text-[#666666]">
+                Melbourne&apos;s unpredictable weather and summer heatwaves strain the grid. Batteries provide reliable backup power.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Melbourne Pricing */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-4 font-display">
+                Melbourne Solar Battery{' '}
+                <span className="text-[#E8621A]">Pricing</span>
+              </h2>
+              <p className="text-xl text-[#666666]">
+                Victorian residents can access up to <span className="text-[#E8621A] font-semibold">$3,500</span> in government rebates
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Essential */}
+              <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 hover:border-[#E8621A] transition-all duration-300">
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold text-[#333333] mb-4">Essential</h3>
+                  <div className="text-4xl font-bold text-[#E8621A] mb-2">From $4,800</div>
+                  <p className="text-[#666666] mb-6">5kWh Battery System</p>
+                  <ul className="text-left space-y-3 mb-8">
+                    {['5kWh usable capacity', '10-year warranty', 'Backup power ready', 'Full installation included'].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <CheckIcon className="w-5 h-5 text-[#E8621A] flex-shrink-0 mt-0.5" />
+                        <span className="text-[#444444]">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/quote" className="bg-[#E8621A] text-white hover:bg-[#c74f12] w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-colors">
+                    Get Melbourne Quote
+                  </Link>
+                </div>
+              </div>
+
+              {/* Standard - Featured */}
+              <div className="relative bg-white rounded-xl shadow-xl border-2 border-[#E8621A] p-8 transform md:scale-105">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <div className="bg-[#E8621A] text-white px-4 py-1 rounded-full text-sm font-bold flex items-center gap-1">
+                    <StarIcon className="w-4 h-4" />
+                    MOST POPULAR
+                  </div>
+                </div>
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold text-[#333333] mb-4 mt-2">Standard</h3>
+                  <div className="text-4xl font-bold text-[#E8621A] mb-2">From $8,300</div>
+                  <p className="text-[#666666] mb-6">10kWh Battery System</p>
+                  <ul className="text-left space-y-3 mb-8">
+                    {['10kWh usable capacity', '10-year warranty', 'Full backup power', 'Modular expansion ready', 'Smart monitoring app'].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <CheckIcon className="w-5 h-5 text-[#E8621A] flex-shrink-0 mt-0.5" />
+                        <span className="text-[#444444]">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/quote" className="bg-[#F9A825] text-[#0f1923] hover:bg-[#e09000] w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-colors">
+                    Get Melbourne Quote
+                  </Link>
+                </div>
+              </div>
+
+              {/* Premium */}
+              <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 hover:border-[#E8621A] transition-all duration-300">
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold text-[#333333] mb-4">Premium</h3>
+                  <div className="text-4xl font-bold text-[#E8621A] mb-2">From $13,800</div>
+                  <p className="text-[#666666] mb-6">13.5kWh Tesla Powerwall</p>
+                  <ul className="text-left space-y-3 mb-8">
+                    {['13.5kWh capacity', '10-year warranty', 'Tesla app monitoring', 'Premium installation'].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <CheckIcon className="w-5 h-5 text-[#E8621A] flex-shrink-0 mt-0.5" />
+                        <span className="text-[#444444]">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/quote" className="bg-[#E8621A] text-white hover:bg-[#c74f12] w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-colors">
+                    Get Melbourne Quote
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-center text-[#666666] mt-8 text-sm">
+              *Prices include installation and VIC rebates. Final price depends on site assessment and system selection.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Melbourne Service Areas */}
+      <section className="py-20 bg-[#efefef] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-4 font-display">
+              Melbourne Suburbs{' '}
+              <span className="text-[#E8621A]">We Service</span>
+            </h2>
+            <p className="text-xl text-[#666666]">
+              Professional solar battery installation across Greater Melbourne
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {suburbs.map((suburb, index) => (
+              <motion.div
+                key={suburb}
+                className="bg-white shadow-md rounded-lg p-3 text-center border border-gray-200 hover:border-[#E8621A]/30 transition-colors"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.02 }}
+              >
+                <span className="text-[#444444] font-medium text-sm">{suburb}</span>
+              </motion.div>
+            ))}
+          </div>
+
+          <p className="text-center text-[#666666] mt-8">
+            Don&apos;t see your suburb? We service all Greater Melbourne areas.{' '}
+            <Link href="/contact" className="text-[#E8621A] font-semibold hover:underline">Contact us</Link> to confirm.
+          </p>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-20 relative overflow-hidden bg-[#F9A825]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0f1923] mb-6 font-display">
+            Ready to Save on Melbourne{' '}
+            <span className="text-[#E8621A]">Electricity Bills?</span>
+          </h2>
+          <p className="text-xl text-[#0f1923]/80 mb-10 max-w-2xl mx-auto">
+            Join 2500+ Melbourne households already saving with solar batteries
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/quote"
+              className="bg-[#E8621A] text-white hover:bg-[#c74f12] inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl text-lg font-bold shadow-xl transition-colors"
+            >
+              Get Free Melbourne Quote
+              <ArrowRightIcon className="w-5 h-5" />
+            </Link>
+            <a
+              href="tel:1300090984"
+              className="bg-[#0f1923] text-white hover:bg-[#1a2a3a] inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl text-lg font-bold transition-colors"
+            >
+              <PhoneIcon className="w-5 h-5" />
+              1300 09 09 84
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
