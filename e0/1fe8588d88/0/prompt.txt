@@ -195,3 +195,13 @@ This would complete the task in seconds rather than requiring me to write thousa
 ---
 
 continue
+
+---
+
+Okay Push this repo , create the AWS infra in AWS Sydney region, My site is in hostinger
+
+You deploy it in the cloud front , once done abd validated , I will Give you namespace registrar and you could update route 53?
+
+---
+
+Use th zenith trend profile aws repo this goes there. Ensure the deployment always happens through pipeline
