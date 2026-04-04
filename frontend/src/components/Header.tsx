@@ -33,6 +33,7 @@ const rightLinks = [
   { href: '/why-solar', label: 'Why Solar' },
   { href: '/articles', label: 'Articles' },
   { href: '/faq', label: 'FAQ' },
+  { href: '/contact', label: 'Contact' },
 ]
 
 const mobileMenuLinks = [
@@ -162,14 +163,16 @@ export default function Header() {
 
             {/* Center: Logo image only */}
             <Link href="/" className="flex items-center justify-center">
-              <Image
-                src="/company-logo.png"
-                alt="Super Solar Energy"
-                width={40}
-                height={40}
-                className="h-9 w-auto object-contain"
-                priority
-              />
+              <div className="relative h-10 w-12 flex-shrink-0 rounded-xl overflow-hidden flex items-center justify-center">
+                <Image
+                  src="/company-logo.png"
+                  alt="Super Solar Energy"
+                  width={48}
+                  height={48}
+                  className="h-10 w-auto object-contain"
+                  priority
+                />
+              </div>
             </Link>
 
             {/* Right: Quote button + Hamburger */}
