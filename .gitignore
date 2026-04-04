@@ -39,6 +39,10 @@ Thumbs.db
 
 # CDK
 cdk/cdk.out/
+cdk/bin/*.js
+cdk/bin/*.d.ts
+cdk/lib/*.js
+cdk/lib/*.d.ts
 
 # Misc
 *.tsbuildinfo
