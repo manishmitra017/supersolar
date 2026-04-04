@@ -61,7 +61,7 @@ On first run, `frontend/.env.local` is created automatically. Add your Google Ma
 ```env
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3001
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_key_here
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-8PTSQYLDMC
+NEXT_PUBLIC_GA_MEASUREMENT_ID=
 ```
 
 ---
@@ -83,7 +83,7 @@ Every push to `main` triggers the pipeline which:
 |--------|-------------|
 | `AWS_ACCESS_KEY_ID` | zenith trends IAM access key |
 | `AWS_SECRET_ACCESS_KEY` | zenith trends IAM secret key |
-| `AWS_ACCOUNT_ID` | `174405733301` |
+| `AWS_ACCOUNT_ID` | account id |
 | `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` | Google Maps API key |
 | `CERTIFICATE_ARN` | ACM certificate ARN (us-east-1) — add after nameservers are set |
 
