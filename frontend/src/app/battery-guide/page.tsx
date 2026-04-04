@@ -3,46 +3,9 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-// SVG Icon Components
-const BookOpenIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-  </svg>
-)
-
-const BoltIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-  </svg>
-)
-
-const SunIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-  </svg>
-)
-
-const BatteryIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5h.375c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125H21M3.75 18h15A2.25 2.25 0 0021 15.75v-6a2.25 2.25 0 00-2.25-2.25h-15A2.25 2.25 0 001.5 9.75v6A2.25 2.25 0 003.75 18z" />
-  </svg>
-)
-
-const MoonIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-  </svg>
-)
-
-const ShieldCheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-  </svg>
-)
-
-const QuestionMarkCircleIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+const ArrowRightIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
   </svg>
 )
 
@@ -52,167 +15,214 @@ const PhoneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 )
 
-const ArrowRightIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-  </svg>
-)
+const jargonTerms = [
+  { term: "kWh (Kilowatt-hour)", definition: "The amount of energy your battery can store. Think of it like the size of your fuel tank. A 10kWh battery can power a 1kW appliance for 10 hours." },
+  { term: "DoD (Depth of Discharge)", definition: "How much of the battery\u0027s total capacity you can safely use. A 90% DoD on a 10kWh battery means you can use 9kWh before recharging." },
+  { term: "Round-Trip Efficiency", definition: "How much energy you get back compared to what you put in. A 90% efficiency means you get 9kWh back for every 10kWh stored." },
+  { term: "Cycle Life", definition: "How many times you can charge and discharge before capacity degrades. 6,000 cycles = 16+ years of daily use." },
+  { term: "AC vs DC Coupling", definition: "AC-coupled batteries work with existing solar systems. DC-coupled batteries are more efficient but usually need new solar installation." },
+  { term: "UPS (Uninterruptible Power Supply)", definition: "Instant backup power during blackouts. No delay between power outage and battery takeover - like having a generator that starts instantly." },
+  { term: "LiFePO4 (Lithium Iron Phosphate)", definition: "Safer battery chemistry than standard lithium-ion. No cobalt, more stable, longer-lasting, and won\u0027t overheat." },
+  { term: "EMS (Energy Management System)", definition: "Smart software that decides when to store energy, use it, or send it to the grid based on your usage patterns and electricity rates." },
+  { term: "VPP (Virtual Power Plant)", definition: "A network of batteries that work together to stabilize the grid. You might get paid for letting your battery help during peak demand." },
+  { term: "Peak/Off-Peak Rates", definition: "Electricity costs more during peak times (usually 2-8pm). Batteries let you use stored cheap off-peak power during expensive peak times." },
+]
 
-const LanguageIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802" />
-  </svg>
-)
+const howItWorks = [
+  {
+    step: '1',
+    title: 'Solar Panels Generate Power',
+    description: 'During the day, your solar panels convert sunlight into DC electricity. This power first goes to your home to run appliances.',
+  },
+  {
+    step: '2',
+    title: 'Excess Power Gets Stored',
+    description: "Any extra solar power your home doesn\u0027t use immediately gets stored in your battery for later. This is when electricity is free!",
+  },
+  {
+    step: '3',
+    title: 'Battery Powers Your Home at Night',
+    description: 'When the sun goes down or on cloudy days, your battery automatically powers your home instead of drawing expensive grid electricity.',
+  },
+  {
+    step: '4',
+    title: 'Blackout Protection',
+    description: 'If the grid goes down, your battery instantly takes over (with UPS feature) - keeping lights, fridge, and essential appliances running.',
+  },
+]
+
+const faqs = [
+  { question: "How much does a solar battery cost in Australia?", answer: "With government rebates, battery systems start from around $4,000-$6,000 for a 5kWh system. A 10kWh system typically costs $8,000-$12,000 after rebates. The Cheaper Home Batteries program can reduce costs by up to $3,500." },
+  { question: "Will a battery save me money?", answer: "Yes! Most households save 70-90% on electricity bills. If you\u0027re paying $500+/quarter for electricity, a battery typically pays for itself in 4-7 years, then provides 15+ years of free power." },
+  { question: "What size battery do I need?", answer: "For an average household: 5kWh covers essentials (fridge, lights, TV), 10kWh powers most of your home, 13.5kWh+ provides full energy independence. Check your evening electricity usage (typically 5-8pm) to determine the right size." },
+  { question: "Can I add a battery to my existing solar system?", answer: "Absolutely! AC-coupled batteries work with any existing solar system. We\u0027ll assess your current setup and recommend the best compatible battery." },
+  { question: "How long do solar batteries last?", answer: "Quality batteries like Tesla Powerwall, Alpha ESS, and others last 10-15 years with warranties covering 10 years or 6,000-10,000 cycles. That\u0027s roughly 16+ years of daily use." },
+  { question: "Are solar batteries safe?", answer: "Modern lithium batteries (especially LiFePO4 chemistry) are extremely safe. They have multiple safety features: thermal protection, overcharge prevention, and fire-resistant casings. We only install batteries meeting Australian safety standards." },
+  { question: "What happens during a blackout?", answer: "With backup-enabled batteries, your home switches to battery power instantly (0.02 seconds with UPS). You won\u0027t even notice the power went out! Essential circuits stay powered for hours or days depending on battery size and usage." },
+  { question: "Can I go completely off-grid?", answer: "Technically yes, but most people stay grid-connected for backup. A typical off-grid system needs 15-30kWh+ of batteries and 10kW+ solar. For most households, a grid-connected battery system is more cost-effective." },
+]
 
 export default function BatteryGuide() {
-  const jargonTerms = [
-    { term: "kWh (Kilowatt-hour)", definition: "The amount of energy your battery can store. Think of it like the size of your fuel tank. A 10kWh battery can power a 1kW appliance for 10 hours." },
-    { term: "DoD (Depth of Discharge)", definition: "How much of the battery\u0027s total capacity you can safely use. A 90% DoD on a 10kWh battery means you can use 9kWh before recharging." },
-    { term: "Round-Trip Efficiency", definition: "How much energy you get back compared to what you put in. A 90% efficiency means you get 9kWh back for every 10kWh stored." },
-    { term: "Cycle Life", definition: "How many times you can charge and discharge before capacity degrades. 6,000 cycles = 16+ years of daily use." },
-    { term: "AC vs DC Coupling", definition: "AC-coupled batteries work with existing solar systems. DC-coupled batteries are more efficient but usually need new solar installation." },
-    { term: "UPS (Uninterruptible Power Supply)", definition: "Instant backup power during blackouts. No delay between power outage and battery takeover - like having a generator that starts instantly." },
-    { term: "LiFePO4 (Lithium Iron Phosphate)", definition: "Safer battery chemistry than standard lithium-ion. No cobalt, more stable, longer-lasting, and won\u0027t overheat." },
-    { term: "EMS (Energy Management System)", definition: "Smart software that decides when to store energy, use it, or send it to the grid based on your usage patterns and electricity rates." },
-    { term: "VPP (Virtual Power Plant)", definition: "A network of batteries that work together to stabilize the grid. You might get paid for letting your battery help during peak demand." },
-    { term: "Peak/Off-Peak Rates", definition: "Electricity costs more during peak times (usually 2-8pm). Batteries let you use stored cheap off-peak power during expensive peak times." }
-  ]
-
-  const howItWorks = [
-    { icon: SunIcon, title: "1. Solar Panels Generate Power", description: "During the day, your solar panels convert sunlight into DC electricity. This power first goes to your home to run appliances.", bgColor: "bg-[#F9A825]/20", iconColor: "text-[#E8621A]" },
-    { icon: BatteryIcon, title: "2. Excess Power Gets Stored", description: "Any extra solar power your home doesn\u0027t use immediately gets stored in your battery for later. This is when electricity is free!", bgColor: "bg-[#E8621A]/20", iconColor: "text-[#E8621A]" },
-    { icon: MoonIcon, title: "3. Battery Powers Your Home at Night", description: "When the sun goes down or on cloudy days, your battery automatically powers your home instead of drawing expensive grid electricity.", bgColor: "bg-purple-500/20", iconColor: "text-purple-600" },
-    { icon: ShieldCheckIcon, title: "4. Blackout Protection", description: "If the grid goes down, your battery instantly takes over (with UPS feature) - keeping lights, fridge, and essential appliances running.", bgColor: "bg-green-500/20", iconColor: "text-green-600" }
-  ]
-
-  const faqs = [
-    { question: "How much does a solar battery cost in Australia?", answer: "With government rebates, battery systems start from around $4,000-$6,000 for a 5kWh system. A 10kWh system typically costs $8,000-$12,000 after rebates. The Cheaper Home Batteries program can reduce costs by up to $3,500." },
-    { question: "Will a battery save me money?", answer: "Yes! Most households save 70-90% on electricity bills. If you\u0027re paying $500+/quarter for electricity, a battery typically pays for itself in 4-7 years, then provides 15+ years of free power." },
-    { question: "What size battery do I need?", answer: "For an average household: 5kWh covers essentials (fridge, lights, TV), 10kWh powers most of your home, 13.5kWh+ provides full energy independence. Check your evening electricity usage (typically 5-8pm) to determine the right size." },
-    { question: "Can I add a battery to my existing solar system?", answer: "Absolutely! AC-coupled batteries work with any existing solar system. We\u0027ll assess your current setup and recommend the best compatible battery." },
-    { question: "How long do solar batteries last?", answer: "Quality batteries like Tesla Powerwall, Alpha ESS, and others last 10-15 years with warranties covering 10 years or 6,000-10,000 cycles. That\u0027s roughly 16+ years of daily use." },
-    { question: "Are solar batteries safe?", answer: "Modern lithium batteries (especially LiFePO4 chemistry) are extremely safe. They have multiple safety features: thermal protection, overcharge prevention, and fire-resistant casings. We only install batteries meeting Australian safety standards." },
-    { question: "What happens during a blackout?", answer: "With backup-enabled batteries, your home switches to battery power instantly (0.02 seconds with UPS). You won\u0027t even notice the power went out! Essential circuits stay powered for hours or days depending on battery size and usage." },
-    { question: "Can I go completely off-grid?", answer: "Technically yes, but most people stay grid-connected for backup. A typical off-grid system needs 15-30kWh+ of batteries and 10kW+ solar. For most households, a grid-connected battery system is more cost-effective." }
-  ]
-
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative py-16 sm:py-24 bg-[#E8621A] overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div className="text-center max-w-4xl mx-auto" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <div className="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full mb-6">
-              <BookOpenIcon className="w-5 h-5 text-[#F9A825]" />
-              <span className="text-[#F9A825] font-semibold text-sm">Complete Guide</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
-              Solar Battery 101: <span className="text-[#F9A825]">Complete Buyer&apos;s Guide</span>
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="section-label">Battery Guide</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl heading-display text-[#1a2332] mt-3">
+              Solar Battery 101: Complete Buyer&apos;s Guide
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">Everything you need to know about solar batteries - explained simply</p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">
+              Everything you need to know about solar batteries -- explained simply
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Jargon Buster Section */}
-      <section className="py-16 bg-[#efefef]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-              <div className="inline-flex items-center gap-2 bg-white shadow-lg border border-gray-200 px-4 py-2 rounded-full mb-6">
-                <LanguageIcon className="w-5 h-5 text-[#E8621A]" />
-                <span className="text-[#E8621A] font-semibold text-sm">Terminology</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-[#333333] mb-4">Battery <span className="text-[#E8621A]">Jargon Buster</span></h2>
-              <p className="text-lg text-[#666666] max-w-2xl mx-auto">No more confusion! Here&apos;s what all those technical terms actually mean:</p>
-            </motion.div>
+      {/* Jargon Buster */}
+      <section className="py-12 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="section-label">Terminology</span>
+            <h2 className="text-3xl heading-display text-[#1a2332] mt-3 mb-2">
+              Battery Jargon Buster
+            </h2>
+            <p className="text-gray-600">
+              No more confusion! Here&apos;s what all those technical terms actually mean:
+            </p>
+          </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {jargonTerms.map((item, index) => (
-                <motion.div key={index} className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:border-[#E8621A]/30 transition-all duration-300" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.05 }}>
-                  <h3 className="text-xl font-bold text-[#E8621A] mb-3">{item.term}</h3>
-                  <p className="text-[#666666] leading-relaxed">{item.definition}</p>
-                </motion.div>
-              ))}
-            </div>
+          <div className="space-y-4">
+            {jargonTerms.map((item, index) => (
+              <motion.div
+                key={index}
+                className="bg-[#F0F5FA] rounded-xl p-6"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.04 }}
+              >
+                <h3 className="text-lg font-bold text-[#E8621A] mb-2">{item.term}</h3>
+                <p className="text-gray-600 leading-relaxed">{item.definition}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* How Batteries Work Section */}
-      <section className="py-16 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-              <div className="inline-flex items-center gap-2 bg-white shadow-lg border border-gray-200 px-4 py-2 rounded-full mb-6">
-                <BoltIcon className="w-5 h-5 text-[#E8621A]" />
-                <span className="text-[#E8621A] font-semibold text-sm">How It Works</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-[#333333] mb-4">How Solar Batteries <span className="text-[#E8621A]">Actually Work</span></h2>
-            </motion.div>
+      {/* How Batteries Work */}
+      <section className="py-12 bg-[#F0F5FA]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="section-label">How It Works</span>
+            <h2 className="text-3xl heading-display text-[#1a2332] mt-3">
+              How Solar Batteries Actually Work
+            </h2>
+          </motion.div>
 
-            <div className="space-y-6">
-              {howItWorks.map((step, index) => (
-                <motion.div key={index} className="bg-white rounded-xl shadow-lg border border-gray-200 p-8" initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }}>
-                  <div className="flex items-start gap-6">
-                    <div className={`flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center ${step.bgColor}`}>
-                      <step.icon className={`w-7 h-7 ${step.iconColor}`} />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-[#333333] mb-3">{step.title}</h3>
-                      <p className="text-[#666666] leading-relaxed">{step.description}</p>
-                    </div>
+          <div className="space-y-4">
+            {howItWorks.map((step, index) => (
+              <motion.div
+                key={index}
+                className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm"
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#E8621A] flex items-center justify-center text-white font-bold">
+                    {step.step}
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-[#1a2332] mb-2">{step.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Common Questions */}
-      <section className="py-16 bg-[#efefef]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-              <div className="inline-flex items-center gap-2 bg-white shadow-lg border border-gray-200 px-4 py-2 rounded-full mb-6">
-                <QuestionMarkCircleIcon className="w-5 h-5 text-[#E8621A]" />
-                <span className="text-[#E8621A] font-semibold text-sm">FAQ</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-[#333333] mb-4">Most Common <span className="text-[#E8621A]">Questions Answered</span></h2>
-            </motion.div>
+      <section className="py-12 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="section-label">FAQ</span>
+            <h2 className="text-3xl heading-display text-[#1a2332] mt-3">
+              Most Common Questions Answered
+            </h2>
+          </motion.div>
 
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <motion.div key={index} className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:border-[#E8621A]/30 transition-all duration-300" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.05 }}>
-                  <h3 className="text-xl font-bold text-[#333333] mb-3">{faq.question}</h3>
-                  <p className="text-[#666666] leading-relaxed">{faq.answer}</p>
-                </motion.div>
-              ))}
-            </div>
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                className="bg-[#F0F5FA] rounded-xl p-6"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.04 }}
+              >
+                <h3 className="text-lg font-bold text-[#1a2332] mb-2">{faq.question}</h3>
+                <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-[#F9A825] relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-            <div className="inline-flex items-center gap-2 bg-white shadow-lg border border-gray-200 px-4 py-2 rounded-full mb-6">
-              <BoltIcon className="w-5 h-5 text-[#E8621A]" />
-              <span className="text-[#E8621A] font-semibold text-sm">Get Started</span>
-            </div>
-
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-[#0f1923] mb-6">
-              Ready to Get Your <span className="text-[#E8621A]">Solar Battery?</span>
+      <section className="py-12 bg-[#F0F5FA]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl heading-display text-[#1a2332] mb-4">
+              Ready to Get Your Solar Battery?
             </h2>
-            <p className="text-xl text-[#0f1923] mb-8 max-w-2xl mx-auto">Get a free personalized quote with government rebate calculations</p>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+              Get a free personalized quote with government rebate calculations
+            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/quote" className="bg-[#E8621A] text-white hover:bg-[#c74f12] px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 transition-colors">
+              <Link
+                href="/quote"
+                className="bg-[#E8621A] text-white px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#c74f12] transition-colors"
+              >
                 Get Free Quote
                 <ArrowRightIcon className="w-5 h-5" />
               </Link>
-              <a href="tel:1300090984" className="bg-[#0f1923] text-white hover:bg-[#1a2a3a] px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 transition-colors">
+              <a
+                href="tel:1300090984"
+                className="bg-[#1a2332] text-white px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#2a3342] transition-colors"
+              >
                 <PhoneIcon className="w-5 h-5" />
                 Call 1300 09 09 84
               </a>

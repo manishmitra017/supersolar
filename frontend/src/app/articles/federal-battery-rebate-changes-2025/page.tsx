@@ -5,18 +5,6 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 // SVG Icon Components
-const ArrowLeftIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-  </svg>
-)
-
-const ArrowRightIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-  </svg>
-)
-
 const BoltIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
@@ -29,27 +17,9 @@ const CheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 )
 
-const PhoneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-  </svg>
-)
-
 const ExclamationTriangleIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-  </svg>
-)
-
-const DocumentTextIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-  </svg>
-)
-
-const ChartBarIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
   </svg>
 )
 
@@ -57,70 +27,40 @@ export default function FederalBatteryRebateArticle() {
   return (
     <div className="bg-white">
       <article>
-        {/* Header */}
-        <header className="relative py-16 sm:py-24 bg-[#E8621A] overflow-hidden">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <motion.div
-              className="max-w-4xl mx-auto text-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <Link href="/articles" className="text-white/80 hover:text-white transition-colors flex items-center gap-2">
-                  <ArrowLeftIcon className="w-4 h-4" />
-                  Back to Articles
-                </Link>
-                <span className="text-white/50">|</span>
-                <span className="bg-white/20 px-3 py-1 rounded-full text-sm text-white border border-white/30">Government Rebates</span>
-              </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-6 leading-tight">
-                Federal Battery Rebate Changes: <span className="text-[#F9A825]">$7.2 Billion Expansion</span> with New Rules for 2026
-              </h1>
-              <p className="text-xl text-white/90 mb-6">
-                Major changes to the Cheaper Home Batteries Program will affect how Australians access battery rebates from May 2026
-              </p>
-              <div className="flex items-center justify-center gap-4 text-white/80">
-                <span>December 2025</span>
-                <span className="text-[#F9A825]">|</span>
-                <span>10 min read</span>
-              </div>
-            </motion.div>
-          </div>
-        </header>
-
-        {/* Featured Image */}
-        <div className="relative -mt-8 mb-12 z-20">
+        {/* Breadcrumb */}
+        <div className="bg-white pt-8 pb-4">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              className="max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="relative h-64 sm:h-96 rounded-2xl overflow-hidden border border-gray-200 shadow-lg">
-                <Image
-                  src="/batteryImage3.jpg"
-                  alt="Home battery installation - Federal Battery Rebate"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </motion.div>
+            <nav className="text-sm text-gray-500">
+              <Link href="/" className="hover:text-[#E8621A] transition-colors">Home</Link>
+              <span className="mx-2">&gt;</span>
+              <Link href="/articles" className="hover:text-[#E8621A] transition-colors">Articles</Link>
+              <span className="mx-2">&gt;</span>
+              <span className="text-gray-700">Federal Battery Rebate Changes: $7.2 Billion Expansion wi...</span>
+            </nav>
+          </div>
+        </div>
+
+        {/* Article Header */}
+        <div className="bg-white py-8">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="text-sm text-gray-500 mb-3">December 2025 &middot; 10 min read</p>
+              <h1 className="text-3xl sm:text-4xl font-display font-bold text-[#1a2332]">
+                Federal Battery Rebate Changes: $7.2 Billion Expansion with New Rules for 2026
+              </h1>
+            </div>
           </div>
         </div>
 
         {/* Article Content */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <motion.div
-            className="max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            {/* Key Takeaway Box */}
+        <div className="bg-white py-8">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              className="max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
             <div className="bg-[#F9A825] p-6 mb-10 border-l-4 border-[#0f1923] rounded-r-xl">
               <h2 className="text-xl font-bold text-[#0f1923] mb-3 flex items-center gap-2">
                 <BoltIcon className="w-6 h-6" />
@@ -421,71 +361,95 @@ export default function FederalBatteryRebateArticle() {
               </blockquote>
             </div>
 
-            {/* Call to Action */}
-            <div className="bg-[#F9A825] p-8 sm:p-12 text-center mt-12 rounded-2xl">
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#0f1923] mb-4">
-                Act Now to Maximise Your Rebate
-              </h2>
-              <p className="text-lg text-[#0f1923]/80 mb-8 max-w-2xl mx-auto">
-                With rebates declining over time and the new tiered system starting May 2026, now is the best time
-                to take advantage of the federal battery rebate. Contact Super Solar Energy for a free consultation
-                and quote.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/quote"
-                  className="bg-[#E8621A] text-white px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#c74f12] transition-colors"
-                >
-                  Get Free Quote
-                  <ArrowRightIcon className="w-5 h-5" />
-                </Link>
-                <a
-                  href="tel:1300090984"
-                  className="bg-[#0f1923] text-white px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#0f1923]/90 transition-colors"
-                >
-                  <PhoneIcon className="w-5 h-5" />
-                  Call 1300 09 09 84
-                </a>
-              </div>
-            </div>
+            
+            </motion.div>
+          </div>
+        </div>
 
-            {/* Related Links */}
-            <div className="mt-12 pt-8 border-t border-gray-200">
-              <h3 className="text-xl font-bold text-[#333333] mb-6">Related Resources</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Link href="/battery-guide" className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-lg border border-gray-200 hover:border-[#E8621A] transition-colors">
-                  <div className="w-12 h-12 bg-[#E8621A]/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <DocumentTextIcon className="w-6 h-6 text-[#E8621A]" />
+        {/* More Articles */}
+        <section className="bg-[#F0F5FA] py-12">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-xl font-bold text-[#1a2332] mb-6">More Articles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Link href="/articles/australia-battery-boom-record-demand-may-2026-deadline" className="block group">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition">
+                  <div className="relative h-40">
+                    <Image
+                      src="/batteryImage1.jpg"
+                      alt="Australia\'s Battery Boom Hits Record Highs"
+                      fill
+                      className="object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 bg-[#E8621A] text-white text-xs font-semibold rounded-full px-3 py-1">
+                      March 2026
+                    </span>
                   </div>
-                  <div>
-                    <div className="font-semibold text-[#333333]">Battery Guide</div>
-                    <div className="text-sm text-[#666666]">Learn about home battery systems</div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-[#1a2332] line-clamp-2 group-hover:text-[#E8621A] transition-colors">
+                      Australia's Battery Boom Hits Record Highs
+                    </h3>
+                    <span className="text-[#E8621A] text-sm font-semibold mt-3 inline-block">Read more &rarr;</span>
                   </div>
-                </Link>
-                <Link href="/battery-comparison" className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-lg border border-gray-200 hover:border-[#E8621A] transition-colors">
-                  <div className="w-12 h-12 bg-[#E8621A]/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <ChartBarIcon className="w-6 h-6 text-[#E8621A]" />
+                </div>
+              </Link>
+              <Link href="/articles/rooftop-solar-surpasses-coal-28gw-australia-2025" className="block group">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition">
+                  <div className="relative h-40">
+                    <Image
+                      src="/solarroof8.jpg"
+                      alt="Australia\'s Rooftop Solar Hits 28.3 GW"
+                      fill
+                      className="object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 bg-[#E8621A] text-white text-xs font-semibold rounded-full px-3 py-1">
+                      March 2026
+                    </span>
                   </div>
-                  <div>
-                    <div className="font-semibold text-[#333333]">Battery Comparison</div>
-                    <div className="text-sm text-[#666666]">Compare battery systems and brands</div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-[#1a2332] line-clamp-2 group-hover:text-[#E8621A] transition-colors">
+                      Australia's Rooftop Solar Hits 28.3 GW
+                    </h3>
+                    <span className="text-[#E8621A] text-sm font-semibold mt-3 inline-block">Read more &rarr;</span>
                   </div>
-                </Link>
-              </div>
-            </div>
-
-            {/* Back to Articles */}
-            <div className="mt-8 text-center">
-              <Link
-                href="/articles"
-                className="inline-flex items-center gap-2 text-[#E8621A] hover:text-[#c74f12] font-semibold transition-colors"
-              >
-                <ArrowLeftIcon className="w-5 h-5" />
-                Back to All Articles
+                </div>
+              </Link>
+              <Link href="/articles/cheaper-home-batteries-program" className="block group">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition">
+                  <div className="relative h-40">
+                    <Image
+                      src="/batteryImage2.jpg"
+                      alt="$2.3 Billion Cheaper Home Batteries Program"
+                      fill
+                      className="object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 bg-[#E8621A] text-white text-xs font-semibold rounded-full px-3 py-1">
+                      August 2025
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-[#1a2332] line-clamp-2 group-hover:text-[#E8621A] transition-colors">
+                      $2.3 Billion Cheaper Home Batteries Program
+                    </h3>
+                    <span className="text-[#E8621A] text-sm font-semibold mt-3 inline-block">Read more &rarr;</span>
+                  </div>
+                </div>
               </Link>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="bg-white py-12 text-center">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-[#1a2332] mb-4">Ready to Go Solar?</h2>
+            <Link
+              href="/quote"
+              className="inline-flex items-center gap-2 bg-[#E8621A] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#c74f12] transition-colors"
+            >
+              Get Free Quote
+            </Link>
+          </div>
+        </section>
       </article>
     </div>
   )

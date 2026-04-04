@@ -2,27 +2,14 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useGooglePlaces } from '@/hooks/useGooglePlaces'
 import { trackEvent } from '@/components/GoogleAnalytics'
 
 // SVG Icon Components
-const RocketIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-  </svg>
-)
-
 const PhoneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-  </svg>
-)
-
-const DevicePhoneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
   </svg>
 )
 
@@ -39,51 +26,15 @@ const MapPinIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 )
 
-const TrophyIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
-  </svg>
-)
-
 const BoltIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
   </svg>
 )
 
-const ShieldCheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-  </svg>
-)
-
-const CurrencyIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-)
-
 const ClockIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-)
-
-const CheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-  </svg>
-)
-
-const ArrowRightIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-  </svg>
-)
-
-const SparklesIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
   </svg>
 )
 
@@ -139,7 +90,6 @@ export default function Contact() {
       })
 
       if (response.ok) {
-        // Track successful contact form submission in GA4
         trackEvent('form_submit', 'Contact', formData.serviceInterest || 'General Inquiry')
         setSubmitMessage('Thank you for your message! We will get back to you within 24 hours.')
         setFormData({ name: '', email: '', phone: '', suburb: '', serviceInterest: '', message: '' })
@@ -153,212 +103,123 @@ export default function Contact() {
     }
   }
 
+  const inputClasses = 'w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-[#E8621A] focus:ring-2 focus:ring-[#E8621A]/20 transition-all text-sm'
+  const selectClasses = `${inputClasses} appearance-none bg-[url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20fill='none'%20viewBox='0%200%2024%2024'%20stroke='%236b7280'%20stroke-width='2'%3E%3Cpath%20stroke-linecap='round'%20stroke-linejoin='round'%20d='M19.5%208.25l-7.5%207.5-7.5-7.5'/%3E%3C/svg%3E")] bg-[length:1.25rem] bg-[right_0.75rem_center] bg-no-repeat pr-10`
+
   return (
     <div className="bg-white">
-      {/* Contact Banner */}
-      <section className="py-4 bg-[#F9A825] relative overflow-hidden">
-        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6">
-              <div className="flex items-center gap-2 text-[#0f1923] font-bold text-lg sm:text-xl">
-                <RocketIcon className="w-5 h-5" />
-                <span>Australia&apos;s #1 Solar &amp; Battery Experts</span>
-              </div>
-              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-                <a
-                  href="tel:1300090984"
-                  className="bg-[#E8621A] text-white px-4 py-2 rounded-full font-bold text-sm sm:text-base hover:bg-[#c74f12] transition-colors shadow-lg flex items-center gap-2"
-                >
-                  <PhoneIcon className="w-4 h-4" />
-                  1300 09 09 84
-                </a>
-                <a
-                  href="tel:+61422786100"
-                  className="bg-white text-[#E8621A] px-4 py-2 rounded-full font-bold text-sm sm:text-base hover:bg-gray-100 transition-colors shadow-lg flex items-center gap-2"
-                >
-                  <DevicePhoneIcon className="w-4 h-4" />
-                  +61 422 786 100
-                </a>
-              </div>
-              <div className="text-[#0f1923] font-semibold text-sm sm:text-base">
-                Call Now for Instant Quote!
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-[#E8621A]">
-        <div className="absolute inset-0">
-          <Image
-            src="/solarroof6.jpg"
-            alt="Contact Super Solar Energy"
-            fill
-            className="object-cover opacity-20"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#E8621A]/80 via-[#E8621A]/60 to-[#E8621A]"></div>
-        </div>
-
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6"
-            >
-              <SparklesIcon className="w-4 h-4 text-[#F9A825]" />
-              <span className="text-white text-sm font-medium tracking-wide">Get In Touch</span>
-            </motion.div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-4 sm:mb-6 leading-tight">
-              <span className="text-white">Contact </span>
-              <span className="text-[#F9A825]">Us</span>
+            <p className="text-sm font-semibold text-[#E8621A] uppercase tracking-wider mb-3">Get In Touch</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[#1a2332] mb-4">
+              Contact Us
             </h1>
-            <p className="text-lg sm:text-xl text-white/90 leading-relaxed">
-              Ready to start your solar journey? Get in touch with Australia&apos;s trusted solar experts
-              for a free consultation and personalized energy solution.
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Ready to start your solar journey? Get in touch today for a free consultation.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Quick Contact Cards */}
-      <section className="py-12 bg-white relative">
+      {/* Main Section */}
+      <section className="py-16 bg-[#F0F5FA]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+            {/* Left Column - Contact Info Cards */}
             <motion.div
-              className="text-center p-4 sm:p-6 bg-white rounded-2xl border border-gray-200 shadow-lg"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="w-12 sm:w-16 h-12 sm:h-16 bg-[#E8621A] rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
-                <PhoneIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-2">Call Now</h3>
-              <a href="tel:1300090984" className="block text-lg sm:text-2xl font-bold text-[#E8621A] mb-1 hover:text-[#c74f12] transition-colors">1300 09 09 84</a>
-              <a href="tel:+61422786100" className="block text-base sm:text-lg font-bold text-[#E8621A] mb-2 hover:text-[#c74f12] transition-colors">+61 422 786 100</a>
-              <p className="text-[#666666] text-xs sm:text-sm">Mon-Fri: 8am-6pm | Sat: 9am-4pm</p>
-            </motion.div>
-
-            <motion.div
-              className="text-center p-6 bg-white rounded-2xl border border-gray-200 shadow-lg"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-            >
-              <div className="w-16 h-16 bg-[#F9A825] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <EnvelopeIcon className="w-8 h-8 text-[#0f1923]" />
-              </div>
-              <h3 className="text-xl font-bold text-[#333333] mb-2">Email Us</h3>
-              <p className="text-[#E8621A] font-semibold mb-2">info@supersolarenergy.com.au</p>
-              <p className="text-[#666666] text-sm">24/7 email support</p>
-            </motion.div>
-
-            <motion.div
-              className="text-center p-6 bg-white rounded-2xl border border-gray-200 shadow-lg"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="w-16 h-16 bg-[#E8621A] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <MapPinIcon className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-[#333333] mb-2">Visit Us</h3>
-              <p className="text-[#666666] mb-2">130 Bridge Road<br />Richmond, Victoria 3121</p>
-              <p className="text-[#666666] text-sm">Free on-site consultations Australia-wide</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Contact Section */}
-      <section className="py-20 bg-[#efefef] relative overflow-hidden">
-        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              className="lg:col-span-2 space-y-4"
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
             >
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-[#333333] mb-4 sm:mb-6">
-                Get Your <span className="text-[#E8621A]">Free Quote</span>
-              </h2>
-              <p className="text-lg text-[#666666] mb-8">
-                Join thousands of satisfied customers who have made the switch to clean, renewable energy.
-                Our team of certified solar experts is ready to design the perfect system for your needs.
-              </p>
-
-              <div className="space-y-6 mb-8">
-                {[
-                  { icon: TrophyIcon, title: '2000+ Happy Customers', desc: 'Trusted by families and businesses across Australia', colorClass: 'text-[#E8621A]' },
-                  { icon: BoltIcon, title: '10+ Years Experience', desc: 'CEC-accredited professionals with proven expertise', colorClass: 'text-[#E8621A]' },
-                  { icon: ShieldCheckIcon, title: '10-Year Warranty', desc: 'Comprehensive workmanship warranty included', colorClass: 'text-[#E8621A]' },
-                  { icon: CurrencyIcon, title: 'Government Rebates', desc: 'We handle all paperwork for maximum savings', colorClass: 'text-[#E8621A]' },
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start group">
-                    <div className="flex-shrink-0 w-12 h-12 bg-white rounded-xl flex items-center justify-center border border-gray-200 shadow-sm group-hover:border-[#E8621A]/30 transition-colors">
-                      <item.icon className={`w-5 h-5 ${item.colorClass}`} />
-                    </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-semibold text-[#333333]">{item.title}</h3>
-                      <p className="text-[#666666]">{item.desc}</p>
-                    </div>
+              {/* Call Us */}
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#E8621A]/10 flex items-center justify-center flex-shrink-0">
+                    <PhoneIcon className="w-5 h-5 text-[#E8621A]" />
                   </div>
-                ))}
+                  <div>
+                    <h3 className="font-bold text-[#1a2332] mb-2">Call Us</h3>
+                    <a href="tel:1300090984" className="block text-[#E8621A] font-semibold hover:text-[#c74f12] transition-colors">
+                      1300 09 09 84
+                    </a>
+                    <a href="tel:+61422786100" className="block text-[#E8621A] font-semibold hover:text-[#c74f12] transition-colors">
+                      +61 422 786 100
+                    </a>
+                    <p className="text-sm text-gray-500 mt-1">Mon-Fri 8am-6pm, Sat 9am-4pm</p>
+                  </div>
+                </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-6 border border-[#E8621A]/20 shadow-lg">
-                <h3 className="text-xl font-bold text-[#333333] mb-4 flex items-center gap-2">
-                  <SparklesIcon className="w-5 h-5 text-[#E8621A]" />
-                  Free Consultation Includes:
-                </h3>
-                <ul className="space-y-3">
-                  {['Complete energy audit', 'Custom system design', 'Accurate pricing quote', 'Rebate calculations'].map((item, index) => (
-                    <li key={index} className="flex items-center text-[#666666]">
-                      <CheckIcon className="w-5 h-5 text-[#E8621A] mr-3 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Email Us */}
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#E8621A]/10 flex items-center justify-center flex-shrink-0">
+                    <EnvelopeIcon className="w-5 h-5 text-[#E8621A]" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#1a2332] mb-2">Email Us</h3>
+                    <a href="mailto:info@supersolarenergy.com.au" className="text-[#E8621A] font-semibold hover:text-[#c74f12] transition-colors">
+                      info@supersolarenergy.com.au
+                    </a>
+                    <p className="text-sm text-gray-500 mt-1">We respond within 24 hours</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Visit Us */}
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#E8621A]/10 flex items-center justify-center flex-shrink-0">
+                    <MapPinIcon className="w-5 h-5 text-[#E8621A]" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#1a2332] mb-2">Visit Us</h3>
+                    <p className="text-gray-700">130 Bridge Road, Richmond VIC 3121</p>
+                    <p className="text-sm text-gray-500 mt-1">Free on-site consultations Australia-wide</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Stats */}
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-[#E8621A]/10 flex items-center justify-center flex-shrink-0">
+                    <BoltIcon className="w-5 h-5 text-[#E8621A]" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#1a2332] mb-2">Quick Stats</h3>
+                    <p className="text-gray-700">2,000+ Happy Customers</p>
+                    <p className="text-gray-700">10+ Years Experience</p>
+                    <p className="text-gray-700">4.9&#9733; Google Rating</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
 
-            {/* Contact Form */}
+            {/* Right Column - Contact Form */}
             <motion.div
-              className="relative group"
-              initial={{ opacity: 0, x: 50 }}
+              className="lg:col-span-3"
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="relative bg-white rounded-2xl p-8 border border-gray-200 shadow-lg">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-[#333333] mb-2">Get Started Today</h3>
-                  <p className="text-[#666666]">Fill out the form below and we&apos;ll contact you within 24 hours</p>
-                </div>
+              <div className="bg-white rounded-xl p-8 shadow-sm">
+                <h2 className="text-xl font-bold text-[#1a2332] mb-6">Send Us a Message</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-[#333333] mb-1">
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                         Full Name *
                       </label>
                       <input
@@ -368,13 +229,12 @@ export default function Contact() {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#efefef] border border-gray-200 rounded-xl text-[#333333] placeholder-[#999999] focus:outline-none focus:border-[#E8621A] focus:ring-1 focus:ring-[#E8621A] transition-all"
+                        className={inputClasses}
                         placeholder="Your full name"
                       />
                     </div>
-
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-[#333333] mb-1">
+                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                         Phone Number *
                       </label>
                       <input
@@ -384,14 +244,14 @@ export default function Contact() {
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#efefef] border border-gray-200 rounded-xl text-[#333333] placeholder-[#999999] focus:outline-none focus:border-[#E8621A] focus:ring-1 focus:ring-[#E8621A] transition-all"
+                        className={inputClasses}
                         placeholder="04XX XXX XXX"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-[#333333] mb-1">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                       Email Address *
                     </label>
                     <input
@@ -401,14 +261,14 @@ export default function Contact() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-[#efefef] border border-gray-200 rounded-xl text-[#333333] placeholder-[#999999] focus:outline-none focus:border-[#E8621A] focus:ring-1 focus:ring-[#E8621A] transition-all"
+                      className={inputClasses}
                       placeholder="your.email@example.com"
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="suburb" className="block text-sm font-medium text-[#333333] mb-1">
+                      <label htmlFor="suburb" className="block text-sm font-medium text-gray-700 mb-1">
                         Address *
                       </label>
                       <input
@@ -419,13 +279,12 @@ export default function Contact() {
                         required
                         value={formData.suburb}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#efefef] border border-gray-200 rounded-xl text-[#333333] placeholder-[#999999] focus:outline-none focus:border-[#E8621A] focus:ring-1 focus:ring-[#E8621A] transition-all"
+                        className={inputClasses}
                         placeholder="Start typing your address..."
                       />
                     </div>
-
                     <div>
-                      <label htmlFor="serviceInterest" className="block text-sm font-medium text-[#333333] mb-1">
+                      <label htmlFor="serviceInterest" className="block text-sm font-medium text-gray-700 mb-1">
                         Service Interest
                       </label>
                       <select
@@ -433,21 +292,21 @@ export default function Contact() {
                         name="serviceInterest"
                         value={formData.serviceInterest}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-[#efefef] border border-gray-200 rounded-xl text-[#333333] focus:outline-none focus:border-[#E8621A] focus:ring-1 focus:ring-[#E8621A] transition-all"
+                        className={selectClasses}
                       >
-                        <option value="" className="bg-white">Select a service</option>
-                        <option value="solar-panels" className="bg-white">Solar Panels</option>
-                        <option value="solar-batteries" className="bg-white">Solar Batteries</option>
-                        <option value="heat-pumps" className="bg-white">Hot Water Heat Pump</option>
-                        <option value="hvac-systems" className="bg-white">HVAC Systems</option>
-                        <option value="maintenance" className="bg-white">Servicing &amp; Maintenance</option>
-                        <option value="consultation" className="bg-white">General Consultation</option>
+                        <option value="">Select a service</option>
+                        <option value="general-inquiry">General Inquiry</option>
+                        <option value="solar-batteries">Solar Batteries</option>
+                        <option value="solar-panels">Solar Panels</option>
+                        <option value="heat-pumps">Heat Pump</option>
+                        <option value="hvac-systems">HVAC</option>
+                        <option value="maintenance">Servicing</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-[#333333] mb-1">
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                       Message
                     </label>
                     <textarea
@@ -456,15 +315,15 @@ export default function Contact() {
                       rows={4}
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-[#efefef] border border-gray-200 rounded-xl text-[#333333] placeholder-[#999999] focus:outline-none focus:border-[#E8621A] focus:ring-1 focus:ring-[#E8621A] transition-all resize-none"
-                      placeholder="Tell us about your energy needs, roof details, current electricity bills, or any questions..."
+                      className={`${inputClasses} resize-none`}
+                      placeholder="Tell us about your energy needs..."
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-[#F9A825] text-[#0f1923] px-6 py-4 rounded-xl text-lg font-semibold hover:bg-[#e09000] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg"
+                    className="w-full rounded-full bg-[#E8621A] text-white py-3.5 font-bold hover:bg-[#c74f12] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <>
@@ -475,33 +334,24 @@ export default function Contact() {
                         Sending...
                       </>
                     ) : (
-                      <>
-                        Get My Free Quote
-                        <ArrowRightIcon className="w-5 h-5" />
-                      </>
+                      'Send Message'
                     )}
                   </button>
 
                   {submitMessage && (
-                    <div className={`p-4 rounded-xl ${submitMessage.includes('Thank you')
-                        ? 'bg-green-50 text-green-700 border border-green-200'
-                        : 'bg-red-50 text-red-700 border border-red-200'
-                      }`}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`p-4 rounded-lg text-sm ${
+                        submitMessage.includes('Thank you')
+                          ? 'bg-green-50 text-green-700 border border-green-200'
+                          : 'bg-red-50 text-red-700 border border-red-200'
+                      }`}
+                    >
                       {submitMessage}
-                    </div>
+                    </motion.div>
                   )}
                 </form>
-
-                <div className="mt-6 pt-6 border-t border-gray-200 text-center">
-                  <p className="text-sm text-[#666666] mb-3">Or call us now for immediate assistance</p>
-                  <a
-                    href="tel:1300090984"
-                    className="inline-flex items-center gap-2 bg-[#efefef] px-6 py-2 rounded-full font-semibold text-[#E8621A] border border-gray-200 hover:bg-[#E8621A] hover:text-white transition-all"
-                  >
-                    <PhoneIcon className="w-4 h-4" />
-                    1300 09 09 84
-                  </a>
-                </div>
               </div>
             </motion.div>
           </div>
@@ -509,204 +359,132 @@ export default function Contact() {
       </section>
 
       {/* Google Maps Section */}
-      <section className="py-16 bg-white relative overflow-hidden">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold font-display text-[#333333] mb-6">
-              Find Our <span className="text-[#E8621A]">Location</span>
-            </h2>
-            <p className="text-xl text-[#666666] max-w-3xl mx-auto mb-8">
-              Visit our office or schedule a free on-site consultation anywhere in Australia.
-            </p>
-          </motion.div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left - Office Info */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg h-full">
-                <h3 className="text-2xl font-bold text-[#333333] mb-6">Our Office</h3>
-                <div className="space-y-4">
-                  {[
-                    { icon: MapPinIcon, title: 'Address', content: '130 Bridge Road\nRichmond, Victoria 3121' },
-                    { icon: ClockIcon, title: 'Business Hours', content: 'Mon-Fri: 8:00 AM - 6:00 PM\nSaturday: 9:00 AM - 4:00 PM\nSunday: Closed' },
-                    { icon: PhoneIcon, title: 'Phone', content: '1300 09 09 84', isLink: true, href: 'tel:1300090984' },
-                    { icon: EnvelopeIcon, title: 'Email', content: 'info@supersolarenergy.com.au', isLink: true, href: 'mailto:info@supersolarenergy.com.au' },
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start">
-                      <div className="w-10 h-10 bg-[#efefef] rounded-lg flex items-center justify-center border border-gray-200 flex-shrink-0">
-                        <item.icon className="w-5 h-5 text-[#E8621A]" />
-                      </div>
-                      <div className="ml-4">
-                        <p className="font-semibold text-[#333333]">{item.title}</p>
-                        {item.isLink ? (
-                          <a href={item.href} className="text-[#E8621A] hover:text-[#c74f12] transition-colors whitespace-pre-line">
-                            {item.content}
-                          </a>
-                        ) : (
-                          <p className="text-[#666666] whitespace-pre-line">{item.content}</p>
-                        )}
-                      </div>
+              <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm h-full">
+                <h3 className="text-2xl font-bold text-[#1a2332] mb-6">Our Office</h3>
+                <div className="space-y-5">
+                  <div className="flex items-start gap-3">
+                    <MapPinIcon className="w-5 h-5 text-[#E8621A] mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-[#1a2332]">Address</p>
+                      <p className="text-gray-600">130 Bridge Road, Richmond VIC 3121</p>
                     </div>
-                  ))}
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <ClockIcon className="w-5 h-5 text-[#E8621A] mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-[#1a2332]">Hours</p>
+                      <p className="text-gray-600">Mon-Fri: 8:00 AM - 6:00 PM</p>
+                      <p className="text-gray-600">Saturday: 9:00 AM - 4:00 PM</p>
+                      <p className="text-gray-600">Sunday: Closed</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <PhoneIcon className="w-5 h-5 text-[#E8621A] mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-[#1a2332]">Phone</p>
+                      <a href="tel:1300090984" className="text-[#E8621A] hover:text-[#c74f12] transition-colors">1300 09 09 84</a>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <EnvelopeIcon className="w-5 h-5 text-[#E8621A] mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-[#1a2332]">Email</p>
+                      <a href="mailto:info@supersolarenergy.com.au" className="text-[#E8621A] hover:text-[#c74f12] transition-colors">info@supersolarenergy.com.au</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
 
+            {/* Right - Google Map */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="rounded-2xl overflow-hidden border border-gray-200 shadow-lg"
+              transition={{ duration: 0.6 }}
+              className="rounded-xl overflow-hidden shadow-lg h-[400px]"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8!2d144.9935!3d-37.8182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s130%20Bridge%20Rd%2C%20Richmond%20VIC%203121%2C%20Australia!5e0!3m2!1sen!2sau!4v1691234567890!5m2!1sen!2sau"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509372!2d144.9987!3d-37.8198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ5JzExLjMiUyAxNDTCsDU5JzU1LjMiRQ!5e0!3m2!1sen!2sau!4v1"
                 width="100%"
-                height="400"
+                height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Super Solar Energy Location - 130 Bridge Road Richmond"
-              ></iframe>
+              />
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Service Areas */}
-      <section className="py-16 bg-[#efefef] relative">
+      <section className="py-12 bg-[#F0F5FA]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
+          <motion.h2
+            className="text-2xl md:text-3xl font-bold text-[#1a2332] text-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold font-display text-[#333333] mb-6">
-              Service Areas Across <span className="text-[#E8621A]">Australia</span>
-            </h2>
-            <p className="text-xl text-[#666666] max-w-3xl mx-auto">
-              We provide solar and energy solutions to customers across all major Australian cities and regions.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 text-center">
-            {[
-              'Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Canberra',
-              'Gold Coast', 'Newcastle', 'Wollongong', 'Geelong', 'Hobart', 'Darwin'
-            ].map((city, index) => (
-              <motion.div
+            We Service All Major Cities
+          </motion.h2>
+          <motion.div
+            className="flex flex-wrap justify-center gap-3"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            {['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Canberra', 'Gold Coast', 'Newcastle', 'Wollongong', 'Geelong', 'Hobart', 'Darwin'].map((city) => (
+              <span
                 key={city}
-                className="p-3 sm:p-4 bg-white rounded-xl border border-gray-200 shadow-sm hover:border-[#E8621A]/30 transition-all duration-300 group"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.05 }}
+                className="px-4 py-2 rounded-full border border-gray-200 bg-white text-sm font-medium text-gray-700 hover:border-[#E8621A] hover:text-[#E8621A] transition-all cursor-default"
               >
-                <h3 className="font-semibold text-[#666666] group-hover:text-[#E8621A] transition-colors text-sm sm:text-base">{city}</h3>
-              </motion.div>
+                {city}
+              </span>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-16 bg-white relative">
-        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold font-display text-[#333333] mb-6">
-              Frequently Asked <span className="text-[#E8621A]">Questions</span>
-            </h2>
-            <p className="text-xl text-[#666666] max-w-3xl mx-auto">
-              Get answers to the most common questions about solar energy and our services.
-            </p>
           </motion.div>
-
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-4">
-              {[
-                {
-                  question: "How quickly can you install my solar system?",
-                  answer: "Most residential installations are completed within 1-3 days. We'll provide you with a detailed timeline during your free consultation, including any necessary approvals and grid connection processes."
-                },
-                {
-                  question: "What government rebates am I eligible for?",
-                  answer: "There are various federal and state rebates available, including the Small-scale Renewable Energy Scheme and state-specific battery rebates. We handle all paperwork and ensure you receive maximum benefits."
-                },
-                {
-                  question: "How much money will I save with solar?",
-                  answer: "Savings depend on your energy usage, system size, and location. Most customers see 70-90% reduction in electricity bills. We provide detailed savings projections during your consultation."
-                },
-                {
-                  question: "Do you offer financing options?",
-                  answer: "Yes, we offer flexible financing solutions to make solar accessible. Our team can discuss various payment plans and financing options that suit your budget during your consultation."
-                }
-              ].map((faq, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:border-[#E8621A]/30 transition-all duration-300"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                >
-                  <h3 className="text-lg font-semibold text-[#333333] mb-3">
-                    {faq.question}
-                  </h3>
-                  <p className="text-[#666666] leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-16 bg-[#E8621A] relative overflow-hidden">
-        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* CTA */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold font-display text-white mb-6">
-              Ready to Start Saving with <span className="text-[#F9A825]">Solar</span>?
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-6">
+              Ready to Go Solar?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Don&apos;t wait - government rebates are available now. Contact us today for your free consultation.
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+              Take the first step towards clean energy and lower bills. Contact us today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/quote"
-                className="group inline-flex items-center justify-center gap-2 bg-[#F9A825] text-[#0f1923] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#e09000] transition-all duration-300 shadow-lg"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E8621A] text-white px-8 py-4 text-lg font-bold hover:bg-[#c74f12] transition-all"
               >
                 Get Free Quote
-                <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a
                 href="tel:1300090984"
-                className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white hover:text-[#E8621A] transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#1a2332] text-[#1a2332] px-8 py-4 text-lg font-bold hover:bg-[#1a2332] hover:text-white transition-all"
               >
                 <PhoneIcon className="w-5 h-5" />
                 Call 1300 09 09 84

@@ -1,383 +1,277 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
+import StatsStrip from '@/components/StatsStrip'
 
-// SVG Icons
-const SunIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+const ChevronIcon = ({ open }: { open: boolean }) => (
+  <svg
+    className={`w-5 h-5 text-[#E8621A] transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
   </svg>
 )
 
-const CurrencyIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+const QuoteIcon = () => (
+  <svg className="w-10 h-10 text-[#E8621A]/20" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z" />
   </svg>
 )
-
-const BoltIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-  </svg>
-)
-
-const PhoneIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-  </svg>
-)
-
-const CheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-)
-
-const SparklesIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-  </svg>
-)
-
-const ArrowRightIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-  </svg>
-)
-
-const StarIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-  </svg>
-)
-
-const BatteryIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h14a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2 2 0 012-2zm18 4v2" />
-  </svg>
-)
-
-const SnowflakeIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" />
-  </svg>
-)
-
-const MapPinIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>
-)
-
-const canberraDistricts = [
-  'Civic', 'Acton', 'Braddon', 'Reid', 'Turner', 'Lyneham',
-  'Belconnen', 'Bruce', 'Kaleen', 'Gungahlin', 'Franklin', 'Harrison',
-  'Woden', 'Phillip', 'Curtin', 'Hughes', 'Garran', 'Lyons',
-  'Tuggeranong', 'Kambah', 'Wanniassa', 'Fadden', 'Erindale', 'Isabella Plains',
-  'Molonglo Valley', 'Denman Prospect', 'Wright', 'Coombs', 'Strathnairn', 'Whitlam',
-  'Queanbeyan', 'Jerrabomberra', 'Googong', 'Bungendore', 'Braidwood', 'Murrumbateman'
-]
 
 export default function SolarBatteryCanberra() {
+  const [openAccordion, setOpenAccordion] = useState<number | null>(0)
+
+  const suburbs = [
+    'Civic', 'Acton', 'Braddon', 'Reid', 'Turner', 'Lyneham',
+    'Belconnen', 'Bruce', 'Kaleen', 'Gungahlin', 'Franklin', 'Harrison',
+    'Woden', 'Phillip', 'Curtin', 'Hughes', 'Garran', 'Lyons',
+    'Tuggeranong', 'Kambah', 'Wanniassa', 'Fadden', 'Erindale', 'Isabella Plains',
+    'Molonglo Valley', 'Denman Prospect', 'Wright', 'Coombs', 'Strathnairn', 'Whitlam',
+    'Queanbeyan', 'Jerrabomberra', 'Googong', 'Bungendore', 'Braidwood', 'Murrumbateman'
+  ]
+
+  const accordionItems = [
+    {
+      title: 'Solar Battery Systems',
+      content: 'We supply and install premium solar battery systems from leading brands including Tesla Powerwall, BYD, Sungrow, and Enphase. Our battery solutions range from 5kWh to 30kWh+ capacity, designed for Canberra\'s high heating demands during cold winters. All systems include smart monitoring, backup power capability, and 10-year manufacturer warranties.'
+    },
+    {
+      title: 'Solar Panel Installation',
+      content: 'Our CEC-accredited installers fit Tier 1 solar panels from brands like Jinko, Trina, and LONGi with efficiency ratings above 21%. Canberra\'s strong year-round solar radiation with clear skies and low humidity creates excellent conditions for solar generation. We design arrays to maximise output across all seasons.'
+    },
+    {
+      title: 'Complete Solar Packages',
+      content: 'Bundled solar panel and battery packages start from $9,000 installed. Our complete solutions include panels, inverter, battery, installation, and smart monitoring — designed to offset Canberra\'s winter heating costs with stored summer solar surplus. We handle the entire process from design to grid connection.'
+    },
+    {
+      title: 'Government Rebates',
+      content: 'ACT residents can access federal STCs (Small-scale Technology Certificates) to reduce upfront costs. The ACT government also offers interest-free loans for solar and battery installations through various sustainability programs. We handle all paperwork and guide you through available incentives to minimise your investment.'
+    }
+  ]
+
+  const testimonials = [
+    {
+      quote: 'Canberra winters are brutal on our energy bills. Since Super Solar installed our battery in Belconnen, we store summer solar surplus and use it to offset winter heating. Our annual energy costs have dropped by 60%.',
+      name: 'Greg & Amanda P.',
+      location: 'Belconnen, Canberra'
+    },
+    {
+      quote: 'Living in the new Molonglo Valley development, we wanted our home to be as energy-efficient as possible. The 10kWh battery from Super Solar has made us nearly energy independent. Excellent service from start to finish.',
+      name: 'Rachel K.',
+      location: 'Molonglo Valley, Canberra'
+    },
+    {
+      quote: 'The Super Solar team understood Canberra\'s unique climate challenges. They sized our system perfectly for our Tuggeranong home, accounting for both summer generation and winter consumption patterns.',
+      name: 'David M.',
+      location: 'Tuggeranong, Canberra'
+    }
+  ]
+
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-[#E8621A]">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      {/* Section 1: Hero */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
+            transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6 border border-white/20">
-              <SnowflakeIcon className="w-5 h-5 text-[#F9A825]" />
-              <span className="text-[#F9A825] font-semibold">Winter Energy Security for Cold Canberra Winters</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="text-white">Solar Battery Installation</span>
-              <br />
-              <span className="text-[#F9A825]">Canberra, ACT</span>
+            <span className="inline-block text-sm font-semibold text-[#1565C0] tracking-wide uppercase mb-4">
+              Solar Batteries in Canberra
+            </span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#1a2332] mb-4 font-display leading-tight">
+              Canberra Solar Battery Installation
             </h1>
-
-            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-              Canberra&apos;s cold winters and excellent solar conditions make battery storage ideal. Store summer surplus to offset winter demand. Join 800+ ACT households already saving with Super Solar Energy.
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Store summer solar surplus for cold winter nights. Energy independence for Australia&apos;s capital.
             </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/quote"
-                className="bg-[#F9A825] text-[#0f1923] hover:bg-[#e09000] inline-flex items-center gap-2 text-lg px-8 py-4 rounded-lg font-semibold transition-colors"
-              >
-                Get Your Free Canberra Quote
-                <ArrowRightIcon className="w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1300090984"
-                className="bg-white text-[#E8621A] hover:bg-gray-100 inline-flex items-center gap-2 text-lg px-8 py-4 rounded-lg font-semibold transition-colors"
-              >
-                <PhoneIcon className="w-5 h-5" />
-                1300 09 09 84
-              </a>
-            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Why Canberra Needs Batteries */}
-      <section className="relative py-20 bg-[#efefef]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
+      {/* Section 2: Intro */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Image
+                src="/solarroof10.jpg"
+                alt="Solar panels on Canberra home"
+                width={600}
+                height={400}
+                className="rounded-2xl shadow-lg object-cover w-full h-[350px]"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-3xl font-bold text-[#1a2332] mb-6 font-display">
+                Why Canberra Homeowners Choose Solar Batteries
+              </h2>
+              <p className="text-gray-600 mb-4">
+                Canberra&apos;s cold winters and excellent solar conditions make battery storage ideal. The ACT enjoys strong year-round solar radiation with clear skies and low humidity, generating abundant energy that can be stored for when you need it most.
+              </p>
+              <p className="text-gray-600 mb-4">
+                With ACT electricity prices at 26-31c/kWh and high winter heating demands, solar batteries significantly reduce your energy bills year-round. Store summer surplus to offset winter demand and reduce your grid dependence in Australia&apos;s capital.
+              </p>
+              <p className="text-gray-600 mb-8">
+                Join 800+ Canberra households already saving with solar battery storage from Super Solar Energy.
+              </p>
+              <Link
+                href="/quote"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#E8621A] text-white font-semibold hover:bg-[#c74f12] transition-colors"
+              >
+                Get Your Free Quote
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Stats Strip */}
+      <StatsStrip variant="light" />
+
+      {/* Section 4: Services Accordion */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+          <motion.h2
+            className="text-3xl font-bold text-[#1a2332] mb-10 text-center font-display"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#333333] mb-4">
-              Why Canberra Homes Need <span className="text-[#E8621A]">Battery Storage</span>
-            </h2>
-            <p className="text-[#666666] max-w-2xl mx-auto">
-              The ACT&apos;s unique climate makes solar batteries essential for Canberra homeowners
-            </p>
-          </motion.div>
+            Our Solar Services in Canberra
+          </motion.h2>
+          <div className="space-y-0">
+            {accordionItems.map((item, index) => (
+              <div key={index} className="border-b border-gray-100">
+                <button
+                  onClick={() => setOpenAccordion(openAccordion === index ? null : index)}
+                  className="w-full flex items-center justify-between py-5 px-2 text-left bg-white hover:bg-gray-50 transition-colors"
+                  aria-expanded={openAccordion === index}
+                >
+                  <span className="text-lg font-semibold text-[#1a2332]">{item.title}</span>
+                  <ChevronIcon open={openAccordion === index} />
+                </button>
+                <AnimatePresence initial={false}>
+                  {openAccordion === index && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-2 pb-5 text-gray-600 leading-relaxed">
+                        {item.content}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: SunIcon,
-                title: "Excellent Solar Resource",
-                description: "Canberra enjoys strong year-round solar radiation with clear skies and low humidity",
-                color: "text-[#E8621A]"
-              },
-              {
-                icon: CurrencyIcon,
-                title: "ACT Energy Costs",
-                description: "ACT electricity prices are 26-31c/kWh. Solar batteries significantly reduce your energy bills",
-                color: "text-[#E8621A]"
-              },
-              {
-                icon: SnowflakeIcon,
-                title: "Winter Energy Security",
-                description: "Cold Canberra winters increase heating costs. Batteries store summer surplus for winter use",
-                color: "text-[#E8621A]"
-              },
-              {
-                icon: BoltIcon,
-                title: "Energy Independence",
-                description: "Reduce grid dependence and maximize self-sufficiency in Australia's capital",
-                color: "text-[#E8621A]"
-              }
-            ].map((benefit, index) => (
+      {/* Section 5: Suburbs We Service */}
+      <section className="py-12 bg-[#F0F5FA]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+          <motion.h2
+            className="text-3xl font-bold text-[#1a2332] mb-8 text-center font-display"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Areas We Service in Canberra
+          </motion.h2>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {suburbs.map((suburb) => (
+              <span
+                key={suburb}
+                className="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-sm text-gray-700"
+              >
+                {suburb}
+              </span>
+            ))}
+          </div>
+          <p className="text-center text-gray-500 mt-6 text-sm">
+            Don&apos;t see your area? We service all ACT and surrounding regions.{' '}
+            <Link href="/contact" className="text-[#E8621A] font-semibold hover:underline">Contact us</Link> to confirm.
+          </p>
+        </div>
+      </section>
+
+      {/* Section 6: Customer Reviews */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+          <motion.h2
+            className="text-3xl font-bold text-[#1a2332] mb-10 text-center font-display"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            What Canberra Customers Say
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
+                className="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-[#E8621A] border-t border-r border-b border-t-gray-100 border-r-gray-100 border-b-gray-100"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 text-center"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[#E8621A]/10 mb-4 ${benefit.color}`}>
-                  <benefit.icon className="w-7 h-7" />
+                <QuoteIcon />
+                <p className="text-gray-600 mt-3 mb-4 text-sm leading-relaxed">
+                  &ldquo;{testimonial.quote}&rdquo;
+                </p>
+                <div>
+                  <p className="font-semibold text-[#1a2332] text-sm">{testimonial.name}</p>
+                  <p className="text-gray-400 text-xs">{testimonial.location}</p>
                 </div>
-                <h3 className="text-lg font-bold text-[#333333] mb-2">{benefit.title}</h3>
-                <p className="text-[#666666] text-sm">{benefit.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="relative py-20 bg-white">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Section 7: CTA */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#333333] mb-4">
-              Canberra Battery <span className="text-[#E8621A]">Packages</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-6 font-display">
+              Ready to Go Solar in Canberra?
             </h2>
-            <p className="text-[#666666] max-w-2xl mx-auto">
-              Competitive pricing for ACT residents with full installation included
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-xl shadow-lg border border-gray-200 p-8"
-            >
-              <div className="text-center mb-6">
-                <BatteryIcon className="w-12 h-12 text-[#E8621A] mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-[#333333] mb-2">Essential</h3>
-                <p className="text-[#666666] text-sm">Perfect for smaller Canberra homes</p>
-              </div>
-              <div className="text-center mb-6">
-                <span className="text-4xl font-bold text-[#333333]">$5,300</span>
-                <span className="text-[#666666] ml-2">installed</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                {['5kWh capacity', 'Single phase', '10-year warranty', 'Backup power ready', 'Full installation'].map((feature, index) => (
-                  <li key={index} className="flex items-center gap-3 text-[#444444]">
-                    <CheckIcon className="w-5 h-5 text-[#E8621A] flex-shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/quote" className="bg-[#E8621A] text-white hover:bg-[#c74f12] w-full text-center block py-3 rounded-lg font-semibold transition-colors">
-                Get Canberra Quote
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="relative bg-white rounded-xl shadow-xl border-2 border-[#E8621A] p-8 transform md:scale-105"
-            >
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <div className="bg-[#E8621A] text-white px-4 py-1 rounded-full text-sm font-bold flex items-center gap-1">
-                  <StarIcon className="w-4 h-4" />
-                  MOST POPULAR
-                </div>
-              </div>
-              <div className="text-center mb-6">
-                <BatteryIcon className="w-12 h-12 text-[#E8621A] mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-[#333333] mb-2">Standard</h3>
-                <p className="text-[#666666] text-sm">Ideal for average Canberra households</p>
-              </div>
-              <div className="text-center mb-6">
-                <span className="text-4xl font-bold text-[#333333]">$9,000</span>
-                <span className="text-[#666666] ml-2">installed</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                {['10kWh capacity', 'Single/Three phase', '10-year warranty', 'Full backup power', 'Modular expansion ready', 'Smart monitoring app'].map((feature, index) => (
-                  <li key={index} className="flex items-center gap-3 text-[#444444]">
-                    <CheckIcon className="w-5 h-5 text-[#E8621A] flex-shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/quote" className="bg-[#F9A825] text-[#0f1923] hover:bg-[#e09000] w-full text-center block py-3 rounded-lg font-semibold transition-colors">
-                Get Canberra Quote
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-white rounded-xl shadow-lg border border-gray-200 p-8"
-            >
-              <div className="text-center mb-6">
-                <BatteryIcon className="w-12 h-12 text-[#E8621A] mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-[#333333] mb-2">Premium</h3>
-                <p className="text-[#666666] text-sm">Maximum independence for larger homes</p>
-              </div>
-              <div className="text-center mb-6">
-                <span className="text-4xl font-bold text-[#333333]">$14,300</span>
-                <span className="text-[#666666] ml-2">installed</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                {['13.5kWh Tesla Powerwall', 'Three phase', '10-year warranty', 'Tesla app monitoring', 'Full home backup', 'Premium installation'].map((feature, index) => (
-                  <li key={index} className="flex items-center gap-3 text-[#444444]">
-                    <CheckIcon className="w-5 h-5 text-[#E8621A] flex-shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/quote" className="bg-[#E8621A] text-white hover:bg-[#c74f12] w-full text-center block py-3 rounded-lg font-semibold transition-colors">
-                Get Canberra Quote
-              </Link>
-            </motion.div>
-          </div>
-
-          <p className="text-center text-[#666666] mt-8 text-sm">
-            *Prices include installation. Final price depends on site assessment and system selection.
-          </p>
-        </div>
-      </section>
-
-      {/* Service Areas */}
-      <section className="relative py-20 bg-[#efefef]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <div className="inline-flex items-center gap-2 mb-4">
-              <MapPinIcon className="w-6 h-6 text-[#E8621A]" />
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#333333]">
-                Canberra <span className="text-[#E8621A]">Service Areas</span>
-              </h2>
-            </div>
-            <p className="text-[#666666] max-w-2xl mx-auto">
-              We install solar batteries across the ACT and surrounding regions
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="bg-white shadow-lg border border-gray-200 rounded-2xl p-8"
-          >
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {canberraDistricts.map((district, index) => (
-                <div
-                  key={index}
-                  className="text-center py-2 px-3 rounded-lg bg-[#efefef] hover:bg-[#E8621A]/10 transition-colors"
-                >
-                  <span className="text-[#444444] text-sm">{district}</span>
-                </div>
-              ))}
-            </div>
-            <p className="text-center text-[#666666] mt-6 text-sm">
-              Don&apos;t see your area? We service all ACT and surrounding regions. <Link href="/contact" className="text-[#E8621A] hover:underline">Contact us</Link> to confirm.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative py-20 bg-[#F9A825]">
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <SparklesIcon className="w-12 h-12 text-[#0f1923] mx-auto mb-6" />
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#0f1923] mb-4">
-              Ready for Canberra&apos;s <span className="text-[#E8621A]">Energy Independence</span>?
-            </h2>
-            <p className="text-xl text-[#0f1923]/80 mb-8">
-              Join 800+ Canberra homeowners who have made the switch to solar battery storage. Store summer sun for cold winter nights. Get your free, no-obligation quote today.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/quote"
-                className="bg-[#0f1923] text-white hover:bg-[#1a2a3a] inline-flex items-center gap-2 text-lg px-8 py-4 rounded-lg font-semibold transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#E8621A] text-white font-semibold hover:bg-[#c74f12] transition-colors"
               >
-                Get Free Canberra Quote
-                <ArrowRightIcon className="w-5 h-5" />
+                Get Free Quote
               </Link>
               <a
                 href="tel:1300090984"
-                className="bg-white text-[#0f1923] hover:bg-gray-100 inline-flex items-center gap-2 text-lg px-8 py-4 rounded-lg font-semibold transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full border-2 border-[#1a2332] text-[#1a2332] font-semibold hover:bg-[#1a2332] hover:text-white transition-colors"
               >
-                <PhoneIcon className="w-5 h-5" />
                 Call 1300 09 09 84
               </a>
             </div>

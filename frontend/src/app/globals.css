@@ -102,7 +102,7 @@ body {
 }
 
 .section-gray {
-  background: var(--bg-gray);
+  background: #F0F5FA;
 }
 
 .section-orange {
@@ -120,13 +120,8 @@ body {
   color: var(--text-heading-dark);
 }
 
-.cosmic-bg {
-  position: relative;
-  background: var(--bg-white);
-}
-
-.cosmic-bg::before {
-  display: none;
+.section-light-blue {
+  background: #F0F5FA;
 }
 
 /* ===============================================================================
@@ -136,9 +131,17 @@ body {
 .heading-display {
   font-family: 'Syne', 'Plus Jakarta Sans', system-ui, sans-serif;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   line-height: 1.1;
   color: var(--text-dark);
+}
+
+.section-label {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  color: var(--primary-orange);
 }
 
 .text-gradient-solar {
@@ -194,80 +197,53 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-.glass-solar {
-  background: rgba(232, 98, 26, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(232, 98, 26, 0.2);
-}
-
 /* ===============================================================================
    BUTTONS & CTAs
    =============================================================================== */
 
-.btn-solar {
-  position: relative;
+.btn-primary {
   background: var(--primary-orange);
   color: var(--text-light);
   font-weight: 700;
   padding: 1rem 2rem;
-  border-radius: 8px;
-  overflow: hidden;
+  border-radius: 999px;
+  border: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 15px rgba(232, 98, 26, 0.35);
-  border: none;
 }
 
-.btn-solar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.5s ease;
-}
-
-.btn-solar:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(232, 98, 26, 0.45);
+.btn-primary:hover {
   background: var(--primary-orange-dark);
+  box-shadow: 0 0 0 4px rgba(232, 98, 26, 0.2);
 }
 
-.btn-solar:hover::before {
-  left: 100%;
-}
-
-.btn-energy {
-  position: relative;
+.btn-secondary {
   background: var(--secondary-blue);
   color: var(--text-light);
   font-weight: 600;
   padding: 1rem 2rem;
-  border-radius: 8px;
+  border-radius: 999px;
   border: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 15px rgba(21, 101, 192, 0.3);
 }
 
-.btn-energy:hover {
+.btn-secondary:hover {
   background: var(--secondary-blue-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(21, 101, 192, 0.4);
+  box-shadow: 0 0 0 4px rgba(21, 101, 192, 0.2);
 }
 
-.btn-ghost {
+.btn-outline {
   background: transparent;
   color: var(--primary-orange);
   font-weight: 600;
   padding: 1rem 2rem;
-  border-radius: 8px;
+  border-radius: 999px;
   border: 2px solid var(--primary-orange);
   transition: all 0.3s ease;
 }
 
-.btn-ghost:hover {
+.btn-outline:hover {
   background: var(--primary-orange);
   color: var(--text-light);
 }
@@ -276,56 +252,49 @@ body {
    CARDS
    =============================================================================== */
 
-.card-cosmic {
+.card-super {
   background: var(--bg-white);
-  border: 1px solid var(--border-light);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 2rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border-left: 3px solid var(--primary-orange);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card-cosmic::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-orange), var(--accent-yellow));
-  opacity: 0;
-  transition: opacity 0.4s ease;
+.card-super:hover {
+  box-shadow: 0 8px 24px rgba(232, 98, 26, 0.12);
+  transform: scale(1.02);
 }
 
-.card-cosmic:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+.card-super-filled {
+  background: linear-gradient(135deg, #FFF5EE 0%, #FFF 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card-cosmic:hover::before {
-  opacity: 1;
+.card-super-filled:hover {
+  background: linear-gradient(135deg, #FFE8D6 0%, #FFF 100%);
 }
 
 .card-blue {
   background: var(--secondary-blue);
   color: var(--text-light);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 2rem;
 }
 
 .card-yellow {
   background: var(--accent-yellow);
   color: var(--text-heading-dark);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 2rem;
 }
 
 .card-feature {
   background: var(--bg-white);
   border: 1px solid var(--border-light);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 2.5rem;
   position: relative;
   overflow: hidden;
@@ -339,7 +308,7 @@ body {
 .card-battery {
   background: var(--bg-white);
   border: 1px solid var(--border-light);
-  border-radius: 16px;
+  border-radius: 12px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -371,7 +340,7 @@ body {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeInUp 0.5s ease-out forwards;
 }
 
 @keyframes scaleIn {
@@ -389,34 +358,34 @@ body {
   animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+.animate-slide-in-left {
+  animation: slideInLeft 0.5s ease-out forwards;
 }
 
-.animate-shine {
-  position: relative;
-  overflow: hidden;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.animate-shine::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  animation: shineSweep 3s ease-in-out infinite;
-}
-
-@keyframes shineSweep {
-  0% { left: -100%; }
-  50%, 100% { left: 200%; }
+.animate-slide-in-right {
+  animation: slideInRight 0.5s ease-out forwards;
 }
 
 .stagger-1 { animation-delay: 0.1s; }
@@ -430,7 +399,7 @@ body {
    FORM ELEMENTS
    =============================================================================== */
 
-.input-cosmic {
+.input-super {
   background: var(--bg-white);
   border: 1px solid var(--border-medium);
   border-radius: 8px;
@@ -441,21 +410,21 @@ body {
   width: 100%;
 }
 
-.input-cosmic::placeholder {
+.input-super::placeholder {
   color: var(--text-muted);
 }
 
-.input-cosmic:focus {
+.input-super:focus {
   outline: none;
   border-color: var(--primary-orange);
   box-shadow: 0 0 0 3px rgba(232, 98, 26, 0.15);
 }
 
-.input-cosmic:hover:not(:focus) {
+.input-super:hover:not(:focus) {
   border-color: var(--text-secondary);
 }
 
-.select-cosmic {
+.select-super {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23E8621A' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -671,8 +640,4 @@ img {
 
 .glow-battery {
   box-shadow: 0 4px 20px rgba(67, 160, 71, 0.2);
-}
-
-.star-field {
-  display: none;
 }

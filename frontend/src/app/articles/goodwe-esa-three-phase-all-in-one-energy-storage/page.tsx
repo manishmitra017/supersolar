@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
+// SVG Icon Components
 const BoltIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
@@ -28,18 +29,6 @@ const PhoneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 )
 
-const ArrowRightIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-  </svg>
-)
-
-const ArrowLeftIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-  </svg>
-)
-
 const BatteryIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h14a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2 2 0 012-2zm18 4v2" />
@@ -56,56 +45,36 @@ const HomeIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 export default function GoodWeArticle() {
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-[#E8621A]">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#E8621A] via-[#E8621A]/90 to-[#E8621A]"></div>
+      {/* Breadcrumb */}
+      <div className="bg-white pt-8 pb-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="text-sm text-gray-500">
+            <Link href="/" className="hover:text-[#E8621A] transition-colors">Home</Link>
+            <span className="mx-2">&gt;</span>
+            <Link href="/articles" className="hover:text-[#E8621A] transition-colors">Articles</Link>
+            <span className="mx-2">&gt;</span>
+            <span className="text-gray-700">GoodWe ESA All-in-One: How Cosmic Renewable Can Help You ...</span>
+          </nav>
         </div>
+      </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16">
-          <motion.div
-            className="max-w-4xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Link href="/articles" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors">
-              <ArrowLeftIcon className="w-4 h-4" />
-              Back to Articles
-            </Link>
-
-            <div className="flex flex-wrap items-center gap-3 mb-6">
-              <span className="bg-white/10 px-3 py-1 rounded-full text-sm text-white border border-white/20">
-                Product News
-              </span>
-              <span className="bg-[#F9A825] px-3 py-1 rounded-full text-sm text-[#0f1923] font-bold animate-pulse">
-                COMING SOON
-              </span>
-              <span className="text-white/70 text-sm">March 2026</span>
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-6 leading-tight">
-              GoodWe ESA All-in-One: How Cosmic Renewable Can Help You Get{' '}
-              <span className="text-[#F9A825]">Australia&apos;s Most Advanced</span>{' '}
-              Energy Storage System
+      {/* Article Header */}
+      <div className="bg-white py-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <p className="text-sm text-gray-500 mb-3">March 2026 &middot; 6 min read</p>
+            <h1 className="text-3xl sm:text-4xl font-display font-bold text-[#1a2332]">
+              GoodWe ESA All-in-One: How Cosmic Renewable Can Help You Get Australia\'s Most Advanced Energy Storage System
             </h1>
-
-            <p className="text-xl text-white/90 max-w-3xl mb-8">
-              CEC-approved three-phase energy storage with 5-108kWh capacity. Here&apos;s how Super Solar Energy can help you be among the first to install this game-changing system.
-            </p>
-
-            <a
-              href="tel:1300090984"
-              className="inline-flex items-center gap-2 bg-[#F9A825] text-[#0f1923] px-6 py-3 rounded-lg font-semibold hover:bg-[#e09000] transition-all"
-            >
-              <PhoneIcon className="w-5 h-5" />
-              Register Interest: 1300 09 09 84
-            </a>
-          </motion.div>
+          </div>
         </div>
-      </section>
+      </div>
 
-      {/* Product Image */}
+      {/* Article Content */}
+      <div className="bg-white py-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+{/* Product Image */}
       <section className="py-8 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
@@ -407,46 +376,93 @@ export default function GoodWeArticle() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-16 bg-[#E8621A] relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6 border border-white/20">
-              <BoltIcon className="w-5 h-5 text-[#F9A825]" />
-              <span className="text-white font-semibold text-sm">Coming Soon to Cosmic</span>
-            </div>
+      
+          </div>
+        </div>
+      </div>
 
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
-              Ready to Future-Proof Your Home with the{' '}
-              <span className="text-[#F9A825]">GoodWe ESA?</span>
-            </h2>
-
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Register your interest today and our team will contact you as soon as stock is available. Lock in your government rebates before they reduce.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/quote"
-                className="bg-[#F9A825] text-[#0f1923] px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#e09000] transition-all"
-              >
-                Register Interest
-                <ArrowRightIcon className="w-5 h-5" />
+      {/* More Articles */}
+      <section className="bg-[#F0F5FA] py-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-xl font-bold text-[#1a2332] mb-6">More Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Link href="/articles/australia-battery-boom-record-demand-may-2026-deadline" className="block group">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition">
+                  <div className="relative h-40">
+                    <Image
+                      src="/batteryImage1.jpg"
+                      alt="Australia\'s Battery Boom Hits Record Highs"
+                      fill
+                      className="object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 bg-[#E8621A] text-white text-xs font-semibold rounded-full px-3 py-1">
+                      March 2026
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-[#1a2332] line-clamp-2 group-hover:text-[#E8621A] transition-colors">
+                      Australia's Battery Boom Hits Record Highs
+                    </h3>
+                    <span className="text-[#E8621A] text-sm font-semibold mt-3 inline-block">Read more &rarr;</span>
+                  </div>
+                </div>
               </Link>
-              <a
-                href="tel:1300090984"
-                className="bg-white text-[#E8621A] px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-gray-100 transition-all"
-              >
-                <PhoneIcon className="w-5 h-5" />
-                Call 1300 09 09 84
-              </a>
-            </div>
-          </motion.div>
+              <Link href="/articles/rooftop-solar-surpasses-coal-28gw-australia-2025" className="block group">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition">
+                  <div className="relative h-40">
+                    <Image
+                      src="/solarroof8.jpg"
+                      alt="Australia\'s Rooftop Solar Hits 28.3 GW"
+                      fill
+                      className="object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 bg-[#E8621A] text-white text-xs font-semibold rounded-full px-3 py-1">
+                      March 2026
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-[#1a2332] line-clamp-2 group-hover:text-[#E8621A] transition-colors">
+                      Australia's Rooftop Solar Hits 28.3 GW
+                    </h3>
+                    <span className="text-[#E8621A] text-sm font-semibold mt-3 inline-block">Read more &rarr;</span>
+                  </div>
+                </div>
+              </Link>
+              <Link href="/articles/cheaper-home-batteries-program" className="block group">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition">
+                  <div className="relative h-40">
+                    <Image
+                      src="/batteryImage2.jpg"
+                      alt="$2.3 Billion Cheaper Home Batteries Program"
+                      fill
+                      className="object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 bg-[#E8621A] text-white text-xs font-semibold rounded-full px-3 py-1">
+                      August 2025
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-[#1a2332] line-clamp-2 group-hover:text-[#E8621A] transition-colors">
+                      $2.3 Billion Cheaper Home Batteries Program
+                    </h3>
+                    <span className="text-[#E8621A] text-sm font-semibold mt-3 inline-block">Read more &rarr;</span>
+                  </div>
+                </div>
+              </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-white py-12 text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-[#1a2332] mb-4">Ready to Go Solar?</h2>
+          <Link
+            href="/quote"
+            className="inline-flex items-center gap-2 bg-[#E8621A] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#c74f12] transition-colors"
+          >
+            Get Free Quote
+          </Link>
         </div>
       </section>
     </div>

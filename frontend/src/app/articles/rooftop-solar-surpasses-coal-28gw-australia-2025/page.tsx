@@ -5,18 +5,6 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 // SVG Icon Components
-const ArrowLeftIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-  </svg>
-)
-
-const ArrowRightIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-  </svg>
-)
-
 const BoltIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
@@ -26,12 +14,6 @@ const BoltIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 const CheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-  </svg>
-)
-
-const PhoneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
   </svg>
 )
 
@@ -59,82 +41,44 @@ const ShieldCheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 )
 
-const ClockIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-)
-
 export default function RooftopSolarSurpassesCoalArticle() {
   return (
     <div className="bg-white">
       <article>
-        {/* Header */}
-        <header className="relative py-16 sm:py-24 bg-[#E8621A] overflow-hidden">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <motion.div
-              className="max-w-4xl mx-auto text-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <Link href="/articles" className="text-white/80 hover:text-white transition-colors flex items-center gap-2">
-                  <ArrowLeftIcon className="w-4 h-4" />
-                  Back to Articles
-                </Link>
-                <span className="text-white/50">|</span>
-                <span className="bg-white/20 px-3 py-1 rounded-full text-sm text-white border border-white/30">Industry News</span>
-              </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-6 leading-tight">
-                Australia&apos;s Rooftop Solar Hits{' '}
-                <span className="text-[#F9A825]">28.3 GW</span> — Now Bigger Than the Entire Coal Fleet
-              </h1>
-              <p className="text-xl text-white/90 mb-6">
-                With 4.3 million installations and counting, Australian rooftops are now the nation&apos;s
-                largest power station — surpassing the entire 22.5 GW coal fleet. And batteries are the next frontier.
-              </p>
-              <div className="flex items-center justify-center gap-4 text-white/80">
-                <span>March 2026</span>
-                <span className="text-[#F9A825]">|</span>
-                <span>6 min read</span>
-              </div>
-            </motion.div>
-          </div>
-        </header>
-
-        {/* Featured Image */}
-        <div className="relative -mt-8 mb-12 z-20">
+        {/* Breadcrumb */}
+        <div className="bg-white pt-8 pb-4">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              className="max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="relative h-64 sm:h-96 rounded-2xl overflow-hidden border border-gray-200 shadow-lg">
-                <Image
-                  src="/solarroof8.jpg"
-                  alt="Australian rooftop solar panels - 28.3 GW milestone"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </motion.div>
+            <nav className="text-sm text-gray-500">
+              <Link href="/" className="hover:text-[#E8621A] transition-colors">Home</Link>
+              <span className="mx-2">&gt;</span>
+              <Link href="/articles" className="hover:text-[#E8621A] transition-colors">Articles</Link>
+              <span className="mx-2">&gt;</span>
+              <span className="text-gray-700">Australia\'s Rooftop Solar Hits 28.3 GW — Now Bigger Than ...</span>
+            </nav>
+          </div>
+        </div>
+
+        {/* Article Header */}
+        <div className="bg-white py-8">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
+              <p className="text-sm text-gray-500 mb-3">March 2026 &middot; 6 min read</p>
+              <h1 className="text-3xl sm:text-4xl font-display font-bold text-[#1a2332]">
+                Australia\'s Rooftop Solar Hits 28.3 GW — Now Bigger Than the Entire Coal Fleet
+              </h1>
+            </div>
           </div>
         </div>
 
         {/* Article Content */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <motion.div
-            className="max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            {/* Key Takeaway Box */}
+        <div className="bg-white py-8">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              className="max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
             <div className="bg-[#F9A825] p-6 mb-10 border-l-4 border-[#0f1923] rounded-r-xl">
               <h2 className="text-xl font-bold text-[#0f1923] mb-3 flex items-center gap-2">
                 <SunIcon className="w-6 h-6" />
@@ -386,50 +330,92 @@ export default function RooftopSolarSurpassesCoalArticle() {
                 </ul>
               </div>
             </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
 
-        {/* CTA Section */}
-        <section className="py-16 bg-[#E8621A] relative overflow-hidden">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+        {/* More Articles */}
+        <section className="bg-[#F0F5FA] py-12">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-xl font-bold text-[#1a2332] mb-6">More Articles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Link href="/articles/australia-battery-boom-record-demand-may-2026-deadline" className="block group">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition">
+                  <div className="relative h-40">
+                    <Image
+                      src="/batteryImage1.jpg"
+                      alt="Australia\'s Battery Boom Hits Record Highs"
+                      fill
+                      className="object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 bg-[#E8621A] text-white text-xs font-semibold rounded-full px-3 py-1">
+                      March 2026
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-[#1a2332] line-clamp-2 group-hover:text-[#E8621A] transition-colors">
+                      Australia's Battery Boom Hits Record Highs
+                    </h3>
+                    <span className="text-[#E8621A] text-sm font-semibold mt-3 inline-block">Read more &rarr;</span>
+                  </div>
+                </div>
+              </Link>
+              <Link href="/articles/cheaper-home-batteries-program" className="block group">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition">
+                  <div className="relative h-40">
+                    <Image
+                      src="/batteryImage2.jpg"
+                      alt="$2.3 Billion Cheaper Home Batteries Program"
+                      fill
+                      className="object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 bg-[#E8621A] text-white text-xs font-semibold rounded-full px-3 py-1">
+                      August 2025
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-[#1a2332] line-clamp-2 group-hover:text-[#E8621A] transition-colors">
+                      $2.3 Billion Cheaper Home Batteries Program
+                    </h3>
+                    <span className="text-[#E8621A] text-sm font-semibold mt-3 inline-block">Read more &rarr;</span>
+                  </div>
+                </div>
+              </Link>
+              <Link href="/articles/stc-battery-rebate-countdown-2026" className="block group">
+                <div className="bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition">
+                  <div className="relative h-40">
+                    <Image
+                      src="/batteryImage2.jpg"
+                      alt="Your Battery Rebate Is Shrinking Every 6 Months"
+                      fill
+                      className="object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 bg-[#E8621A] text-white text-xs font-semibold rounded-full px-3 py-1">
+                      February 2026
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg text-[#1a2332] line-clamp-2 group-hover:text-[#E8621A] transition-colors">
+                      Your Battery Rebate Is Shrinking Every 6 Months
+                    </h3>
+                    <span className="text-[#E8621A] text-sm font-semibold mt-3 inline-block">Read more &rarr;</span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="bg-white py-12 text-center">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-[#1a2332] mb-4">Ready to Go Solar?</h2>
+            <Link
+              href="/quote"
+              className="inline-flex items-center gap-2 bg-[#E8621A] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#c74f12] transition-colors"
             >
-              <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6 border border-white/20">
-                <ClockIcon className="w-5 h-5 text-[#F9A825]" />
-                <span className="text-white font-semibold text-sm">Rebate Drops 1 May 2026</span>
-              </div>
-
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
-                Join the Solar Revolution —{' '}
-                <span className="text-[#F9A825]">Before Rebates Drop</span>
-              </h2>
-
-              <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                With 28.3 GW of rooftop solar already installed, there&apos;s never been a better time
-                to add a battery. Get a free consultation from Super Solar Energy today and secure the maximum rebate.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/quote"
-                  className="bg-[#F9A825] text-[#0f1923] px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#e09000] transition-all"
-                >
-                  Get Free Quote
-                  <ArrowRightIcon className="w-5 h-5" />
-                </Link>
-                <a
-                  href="tel:1300090984"
-                  className="bg-white text-[#E8621A] px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-2 hover:bg-gray-100 transition-all"
-                >
-                  <PhoneIcon className="w-5 h-5" />
-                  Call 1300 09 09 84
-                </a>
-              </div>
-            </motion.div>
+              Get Free Quote
+            </Link>
           </div>
         </section>
       </article>

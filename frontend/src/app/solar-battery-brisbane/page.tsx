@@ -1,59 +1,29 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import StatsStrip from '@/components/StatsStrip'
 
-// SVG Icon Components
-const SunIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+const ChevronIcon = ({ open }: { open: boolean }) => (
+  <svg
+    className={`w-5 h-5 text-[#E8621A] transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
   </svg>
 )
 
-const CurrencyIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-)
-
-const BoltIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-  </svg>
-)
-
-const PhoneIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-  </svg>
-)
-
-const CheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-)
-
-const SparklesIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-  </svg>
-)
-
-const ArrowRightIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-  </svg>
-)
-
-const StarIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+const QuoteIcon = () => (
+  <svg className="w-10 h-10 text-[#E8621A]/20" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z" />
   </svg>
 )
 
 export default function SolarBatteryBrisbane() {
+  const [openAccordion, setOpenAccordion] = useState<number | null>(0)
+
   const suburbs = [
     'Brisbane CBD', 'Fortitude Valley', 'South Bank', 'West End', 'New Farm', 'Teneriffe',
     'Indooroopilly', 'Toowong', 'St Lucia', 'Taringa', 'Chapel Hill', 'Kenmore',
@@ -63,269 +33,249 @@ export default function SolarBatteryBrisbane() {
     'Ipswich', 'Springfield', 'Redbank', 'Goodna', 'Booval', 'Bundamba'
   ]
 
+  const accordionItems = [
+    {
+      title: 'Solar Battery Systems',
+      content: 'We supply and install premium solar battery systems from leading brands including Tesla Powerwall, BYD, Sungrow, and Enphase. Our battery solutions range from 5kWh to 30kWh+ capacity, designed to handle Brisbane\'s high air conditioning loads. All systems include smart monitoring, backup power capability, and 10-year manufacturer warranties.'
+    },
+    {
+      title: 'Solar Panel Installation',
+      content: 'Our CEC-accredited installers fit Tier 1 solar panels from brands like Jinko, Trina, and LONGi with efficiency ratings above 21%. Brisbane\'s 300+ days of sunshine mean your panels will generate exceptional output year-round. We optimise every array for Queensland\'s solar conditions.'
+    },
+    {
+      title: 'Complete Solar Packages',
+      content: 'Bundled solar panel and battery packages start from $8,490 installed. Our complete solutions include panels, inverter, battery, installation, and smart monitoring — everything you need to maximise your Brisbane solar savings. We handle design, installation, and grid connection.'
+    },
+    {
+      title: 'Government Rebates',
+      content: 'Queensland residents can access up to $3,500 in federal rebates through STCs (Small-scale Technology Certificates). We handle all rebate paperwork on your behalf, ensuring you receive the maximum discount. Brisbane homeowners can also benefit from competitive feed-in tariffs for excess solar energy exported to the grid.'
+    }
+  ]
+
+  const testimonials = [
+    {
+      quote: 'Brisbane\'s summer storms used to knock out our power for hours. Since Super Solar installed our 10kWh battery in Indooroopilly, we\'ve sailed through every outage without even noticing. The savings on our electricity bill are a bonus.',
+      name: 'Steve & Michelle K.',
+      location: 'Indooroopilly, Brisbane'
+    },
+    {
+      quote: 'With 300+ sunny days here in Brisbane, it made sense to store our excess solar. Super Solar set us up with a great system in Carindale. We\'re now saving over $2,000 a year and barely use any grid power.',
+      name: 'Tony M.',
+      location: 'Carindale, Brisbane'
+    },
+    {
+      quote: 'The team at Super Solar was incredibly professional. From the initial quote to installation at our Springfield home, everything was seamless. Our battery pays for itself with the savings we\'re making.',
+      name: 'Angela D.',
+      location: 'Springfield, Brisbane'
+    }
+  ]
+
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-[#E8621A]">
-        <div className="absolute inset-0">
-          <Image
-            src="/batteryImage1.jpg"
-            alt="Solar Battery Installation Brisbane"
-            fill
-            className="object-cover opacity-20"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#E8621A] via-[#E8621A]/80 to-transparent"></div>
-        </div>
-
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Section 1: Hero */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            className="text-center max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/30 mb-6">
-              <SparklesIcon className="w-4 h-4 text-[#F9A825]" />
-              <span className="text-[#F9A825] text-sm font-semibold">QUEENSLAND&apos;S #1 CHOICE</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight font-display">
-              <span className="text-white">Solar Battery Installation</span>
-              <span className="block text-[#F9A825]">Brisbane</span>
+            <span className="inline-block text-sm font-semibold text-[#1565C0] tracking-wide uppercase mb-4">
+              Solar Batteries in Brisbane
+            </span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#1a2332] mb-4 font-display leading-tight">
+              Brisbane Solar Battery Installation
             </h1>
-            <p className="text-xl sm:text-2xl text-white/90 mb-8">
-              Government Rebates Up to <span className="text-[#F9A825] font-bold">$3,500</span>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Capture Brisbane&apos;s 300+ sunny days with battery storage. Federal rebates up to $3,500 for Queensland homeowners.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/quote"
-                className="bg-[#F9A825] text-[#0f1923] hover:bg-[#e09000] inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold shadow-xl"
-              >
-                Get Free Brisbane Quote
-                <ArrowRightIcon className="w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1300090984"
-                className="bg-white text-[#E8621A] hover:bg-gray-100 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold"
-              >
-                <PhoneIcon className="w-5 h-5" />
-                1300 09 09 84
-              </a>
-            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Brisbane-Specific Benefits */}
-      <section className="py-20 bg-[#efefef] relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-4 font-display">
-              Why Brisbane Homes Need{' '}
-              <span className="text-[#E8621A]">Solar Batteries</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Section 2: Intro */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <motion.div
-              className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 hover:border-[#E8621A]/40 transition-all duration-300 group"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="w-16 h-16 bg-[#E8621A]/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <SunIcon className="w-8 h-8 text-[#E8621A]" />
-              </div>
-              <h3 className="text-xl font-bold text-[#333333] mb-3">300+ Sunny Days</h3>
-              <p className="text-[#666666]">
-                Brisbane&apos;s 300+ days of sunshine per year make solar batteries incredibly effective. Store all that free sunshine energy!
-              </p>
+              <Image
+                src="/solarroof7.jpg"
+                alt="Solar panels on Brisbane home"
+                width={600}
+                height={400}
+                className="rounded-2xl shadow-lg object-cover w-full h-[350px]"
+              />
             </motion.div>
-
             <motion.div
-              className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 hover:border-[#E8621A]/40 transition-all duration-300 group"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="w-16 h-16 bg-[#E8621A]/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <CurrencyIcon className="w-8 h-8 text-[#E8621A]" />
-              </div>
-              <h3 className="text-xl font-bold text-[#333333] mb-3">QLD Energy Costs</h3>
-              <p className="text-[#666666]">
-                Queensland electricity prices are 30-35c/kWh. A battery lets you use free solar power instead of expensive grid power.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 hover:border-[#E8621A]/40 transition-all duration-300 group"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="w-16 h-16 bg-[#E8621A]/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <BoltIcon className="w-8 h-8 text-[#E8621A]" />
-              </div>
-              <h3 className="text-xl font-bold text-[#333333] mb-3">Storm Protection</h3>
-              <p className="text-[#666666]">
-                Brisbane&apos;s summer storms cause power outages. Battery backup keeps your home powered when the grid goes down.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Brisbane Pricing */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-4 font-display">
-                Brisbane Solar Battery{' '}
-                <span className="text-[#E8621A]">Pricing</span>
+              <h2 className="text-3xl font-bold text-[#1a2332] mb-6 font-display">
+                Why Brisbane Homeowners Choose Solar Batteries
               </h2>
-              <p className="text-xl text-[#666666]">
-                Queensland residents can access up to <span className="text-[#E8621A] font-semibold">$3,500</span> in federal rebates
+              <p className="text-gray-600 mb-4">
+                Brisbane&apos;s 300+ days of sunshine per year make solar batteries incredibly effective. All that free sunshine energy can be stored and used when electricity is most expensive — during evening peak hours when your family needs it most.
               </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#E8621A] transition-all duration-300">
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-[#333333] mb-4">Essential</h3>
-                  <div className="text-4xl font-bold text-[#E8621A] mb-2">From $4,990</div>
-                  <p className="text-[#666666] mb-6">5kWh Battery System</p>
-                  <ul className="text-left space-y-3 mb-8">
-                    {['5kWh usable capacity', '10-year warranty', 'Backup power ready', 'Full installation included'].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <CheckIcon className="w-5 h-5 text-[#E8621A] flex-shrink-0 mt-0.5" />
-                        <span className="text-[#444444]">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href="/quote" className="bg-[#E8621A] text-white hover:bg-[#c74f12] w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold">
-                    Get Brisbane Quote
-                  </Link>
-                </div>
-              </div>
-
-              <div className="relative bg-white rounded-2xl p-8 border-2 border-[#E8621A] transform md:scale-105 shadow-2xl">
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <div className="bg-[#E8621A] text-white px-4 py-1 rounded-full text-sm font-bold flex items-center gap-1">
-                    <StarIcon className="w-4 h-4" />
-                    MOST POPULAR
-                  </div>
-                </div>
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-[#333333] mb-4 mt-2">Standard</h3>
-                  <div className="text-4xl font-bold text-[#E8621A] mb-2">From $8,490</div>
-                  <p className="text-[#666666] mb-6">10kWh Battery System</p>
-                  <ul className="text-left space-y-3 mb-8">
-                    {['10kWh usable capacity', '10-year warranty', 'Full backup power', 'Modular expansion ready', 'Smart monitoring app'].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <CheckIcon className="w-5 h-5 text-[#E8621A] flex-shrink-0 mt-0.5" />
-                        <span className="text-[#444444]">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href="/quote" className="bg-[#F9A825] text-[#0f1923] hover:bg-[#e09000] w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold">
-                    Get Brisbane Quote
-                  </Link>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#E8621A] transition-all duration-300">
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-[#333333] mb-4">Premium</h3>
-                  <div className="text-4xl font-bold text-[#E8621A] mb-2">From $13,990</div>
-                  <p className="text-[#666666] mb-6">13.5kWh Tesla Powerwall</p>
-                  <ul className="text-left space-y-3 mb-8">
-                    {['13.5kWh capacity', '10-year warranty', 'Tesla app monitoring', 'Premium installation'].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <CheckIcon className="w-5 h-5 text-[#E8621A] flex-shrink-0 mt-0.5" />
-                        <span className="text-[#444444]">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href="/quote" className="bg-[#E8621A] text-white hover:bg-[#c74f12] w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold">
-                    Get Brisbane Quote
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-center text-[#666666] mt-8 text-sm">
-              *Prices include installation and federal rebates. Final price depends on site assessment and system selection.
-            </p>
+              <p className="text-gray-600 mb-4">
+                Queensland electricity prices are 30-35c/kWh, and a battery lets you use free solar power instead of expensive grid power. Brisbane&apos;s summer storms also cause regular power outages, making battery backup essential for keeping your home running when the grid goes down.
+              </p>
+              <p className="text-gray-600 mb-8">
+                Join 2,000+ Brisbane households already saving with solar battery storage from Super Solar Energy.
+              </p>
+              <Link
+                href="/quote"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#E8621A] text-white font-semibold hover:bg-[#c74f12] transition-colors"
+              >
+                Get Your Free Quote
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Brisbane Service Areas */}
-      <section className="py-20 bg-[#efefef] relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-4 font-display">
-              Brisbane Suburbs{' '}
-              <span className="text-[#E8621A]">We Service</span>
-            </h2>
-            <p className="text-xl text-[#666666]">
-              Professional solar battery installation across Greater Brisbane
-            </p>
-          </div>
+      {/* Section 3: Stats Strip */}
+      <StatsStrip variant="light" />
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {suburbs.map((suburb, index) => (
-              <motion.div
-                key={suburb}
-                className="bg-white shadow-lg border border-gray-200 rounded-lg p-3 text-center hover:border-[#E8621A] transition-colors"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.02 }}
-              >
-                <span className="text-[#444444] font-medium text-sm">{suburb}</span>
-              </motion.div>
+      {/* Section 4: Services Accordion */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+          <motion.h2
+            className="text-3xl font-bold text-[#1a2332] mb-10 text-center font-display"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Our Solar Services in Brisbane
+          </motion.h2>
+          <div className="space-y-0">
+            {accordionItems.map((item, index) => (
+              <div key={index} className="border-b border-gray-100">
+                <button
+                  onClick={() => setOpenAccordion(openAccordion === index ? null : index)}
+                  className="w-full flex items-center justify-between py-5 px-2 text-left bg-white hover:bg-gray-50 transition-colors"
+                  aria-expanded={openAccordion === index}
+                >
+                  <span className="text-lg font-semibold text-[#1a2332]">{item.title}</span>
+                  <ChevronIcon open={openAccordion === index} />
+                </button>
+                <AnimatePresence initial={false}>
+                  {openAccordion === index && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-2 pb-5 text-gray-600 leading-relaxed">
+                        {item.content}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <p className="text-center text-[#666666] mt-8">
+      {/* Section 5: Suburbs We Service */}
+      <section className="py-12 bg-[#F0F5FA]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+          <motion.h2
+            className="text-3xl font-bold text-[#1a2332] mb-8 text-center font-display"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Areas We Service in Brisbane
+          </motion.h2>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {suburbs.map((suburb) => (
+              <span
+                key={suburb}
+                className="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-sm text-gray-700"
+              >
+                {suburb}
+              </span>
+            ))}
+          </div>
+          <p className="text-center text-gray-500 mt-6 text-sm">
             Don&apos;t see your suburb? We service all Greater Brisbane areas.{' '}
             <Link href="/contact" className="text-[#E8621A] font-semibold hover:underline">Contact us</Link> to confirm.
           </p>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 relative overflow-hidden bg-[#F9A825]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0f1923] mb-6 font-display">
-            Ready to Save on Brisbane{' '}
-            <span className="text-[#E8621A]">Electricity Bills?</span>
-          </h2>
-          <p className="text-xl text-[#0f1923]/80 mb-10 max-w-2xl mx-auto">
-            Join 2000+ Brisbane households already saving with solar batteries
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/quote"
-              className="bg-[#E8621A] text-white hover:bg-[#c74f12] inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl text-lg font-bold shadow-2xl"
-            >
-              Get Free Brisbane Quote
-              <ArrowRightIcon className="w-5 h-5" />
-            </Link>
-            <a
-              href="tel:1300090984"
-              className="bg-[#0f1923] text-white hover:bg-[#1a2a3a] inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl text-lg font-bold"
-            >
-              <PhoneIcon className="w-5 h-5" />
-              1300 09 09 84
-            </a>
+      {/* Section 6: Customer Reviews */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+          <motion.h2
+            className="text-3xl font-bold text-[#1a2332] mb-10 text-center font-display"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            What Brisbane Customers Say
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                className="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-[#E8621A] border-t border-r border-b border-t-gray-100 border-r-gray-100 border-b-gray-100"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <QuoteIcon />
+                <p className="text-gray-600 mt-3 mb-4 text-sm leading-relaxed">
+                  &ldquo;{testimonial.quote}&rdquo;
+                </p>
+                <div>
+                  <p className="font-semibold text-[#1a2332] text-sm">{testimonial.name}</p>
+                  <p className="text-gray-400 text-xs">{testimonial.location}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Section 7: CTA */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-6 font-display">
+              Ready to Go Solar in Brisbane?
+            </h2>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/quote"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#E8621A] text-white font-semibold hover:bg-[#c74f12] transition-colors"
+              >
+                Get Free Quote
+              </Link>
+              <a
+                href="tel:1300090984"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full border-2 border-[#1a2332] text-[#1a2332] font-semibold hover:bg-[#1a2332] hover:text-white transition-colors"
+              >
+                Call 1300 09 09 84
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>
