@@ -251,3 +251,7 @@ Now Please understand this , I have 2 companies. Cosmic and Super solar, I am st
 [Image #3] - fix this header
 
 [Image #4] - in mobile view , i cant even see the company name, also the buttons in mobiles
+
+---
+
+[Image #5] - fix the quoute generation - it should be sun-solar , with different template
