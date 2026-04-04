@@ -245,3 +245,9 @@ Now Please understand this , I have 2 companies. Cosmic and Super solar, I am st
 [Image #1] - this looks so good
 
 [Image #2] - this looks so bad , also add the contact us page like cosmic , also in the header
+
+---
+
+[Image #3] - fix this header
+
+[Image #4] - in mobile view , i cant even see the company name, also the buttons in mobiles
