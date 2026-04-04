@@ -96,7 +96,8 @@ export default function Quote() {
     setSubmitMessage('')
 
     try {
-      const response = await fetch('https://3grnljxs6h.execute-api.ap-southeast-2.amazonaws.com/prod/api/quote', {
+      const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+      const response = await fetch(`${apiBase}/api/quote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
