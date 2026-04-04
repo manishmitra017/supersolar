@@ -215,3 +215,19 @@ also have a run_all.sh script for me to run this website locally
 ---
 
 https://github.com/manishmitra017/supersolar/actions/runs/23979865699/job/69942481897 , failed again
+
+---
+
+okay deployment happen , but what is the cloud front url
+
+---
+
+okay Can you give me the name servers from AWS , i will then update the Hostinger?
+
+---
+
+updated can you check?
+
+---
+
+okay can you please add a read me
