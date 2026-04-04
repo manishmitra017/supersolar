@@ -5,7 +5,7 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
-import * as acm from 'aws-cdk-lib/aws-acm';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigatewayv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as integrations from 'aws-cdk-lib/aws-apigatewayv2-integrations';
@@ -74,7 +74,7 @@ export class WebsiteStack extends cdk.Stack {
         CC_EMAIL: 'manish.bvc@gmail.com',
         FROM_EMAIL: `noreply@${domainName}`,
       },
-    }));
+    });
 
     quoteFunction.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
