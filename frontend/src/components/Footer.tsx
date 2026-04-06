@@ -112,7 +112,7 @@ export default function Footer() {
         <div className="border-t border-white/10 mt-10 pt-6">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
             <p className="text-sm text-white/60">
-              130 Bridge Road, Richmond VIC 3121
+              17 Short Street, Hampton East, Vic. 3188
             </p>
             <p className="text-sm text-white/60">
               <a

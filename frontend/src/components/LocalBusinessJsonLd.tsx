@@ -22,10 +22,10 @@ export default function LocalBusinessJsonLd({
     "telephone": "1300 09 09 84",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "130 Bridge Road",
+      "streetAddress": "17 Short Street",
       "addressLocality": city,
       "addressRegion": state,
-      "postalCode": "3121",
+      "postalCode": "3188",
       "addressCountry": "AU",
     },
     "areaServed": {

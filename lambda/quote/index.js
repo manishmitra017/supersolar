@@ -135,7 +135,7 @@ exports.handler = async (event) => {
               <tr>
                 <td style="background:#1a2332;padding:20px 32px;text-align:center">
                   <p style="margin:0 0 4px;font-size:12px;color:#F9A825;font-weight:600">Super Solar Energy</p>
-                  <p style="margin:0 0 4px;font-size:11px;color:rgba(255,255,255,0.6)">130 Bridge Road, Richmond VIC 3121</p>
+                  <p style="margin:0 0 4px;font-size:11px;color:rgba(255,255,255,0.6)">17 Short Street, Hampton East, Vic. 3188</p>
                   <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.5)">Reply to this email to respond to the customer</p>
                 </td>
               </tr>
@@ -167,7 +167,7 @@ exports.handler = async (event) => {
         '',
       ] : [],
       '—',
-      'Super Solar Energy | 130 Bridge Road, Richmond VIC 3121',
+      'Super Solar Energy | 17 Short Street, Hampton East, Vic. 3188',
       'supersolarenergy.com.au',
     ]
       .filter((l) => l !== undefined)
