@@ -71,10 +71,10 @@ const organizationSchema = JSON.stringify({
   "telephone": "1300 09 09 84",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "130 Bridge Road",
-    "addressLocality": "Richmond",
+    "streetAddress": "17 Short Street",
+    "addressLocality": "Hampton East",
     "addressRegion": "VIC",
-    "postalCode": "3121",
+    "postalCode": "3188",
     "addressCountry": "AU"
   },
   "sameAs": [

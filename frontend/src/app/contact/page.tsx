@@ -218,7 +218,7 @@ export default function Contact() {
                 <MapPinIcon className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-bold text-[#1a2332] mb-4">Visit Us</h3>
-              <p className="text-gray-600 mb-2">130 Bridge Road<br />Richmond, VIC 3121</p>
+              <p className="text-gray-600 mb-2">17 Short Street<br />Hampton East, Vic. 3188</p>
               <p className="text-sm text-gray-500 mt-2">Free on-site consultations<br />Australia-wide</p>
             </motion.div>
           </div>
@@ -386,7 +386,7 @@ export default function Contact() {
               <div className="space-y-8">
                 <div>
                   <p className="text-gray-400 text-sm font-semibold uppercase tracking-wider mb-2">Address</p>
-                  <p className="text-xl">130 Bridge Road<br />Richmond, VIC 3121</p>
+                  <p className="text-xl">17 Short Street<br />Hampton East, Vic. 3188</p>
                 </div>
                 <div>
                   <p className="text-gray-400 text-sm font-semibold uppercase tracking-wider mb-2">Business Hours</p>
